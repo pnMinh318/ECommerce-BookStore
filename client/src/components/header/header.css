@@ -1,0 +1,91 @@
+
+
+.header{
+    max-height: fit-content;
+    width: auto;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 150px;
+    background-color: #94baf3c2;
+   
+}
+.header-logo{
+    height: fit-content;
+    width: 70px;
+    text-align: center;
+}
+#header-searchbar{
+    box-sizing: border-box;
+    text-align: center;
+    cursor: text;
+    border-radius: 5px  0px 0px 5px;
+    height: min-content;
+    font-size: x-large;
+    padding: 3px 20px;
+    border: solid 1px  ;
+    text-align: left;
+    background-color: #ffffff;
+}
+.header-searchform{
+    box-sizing: border-box;
+
+}
+.header-searchform form button{
+    background-color: whitesmoke;
+    text-align: center;
+    cursor: pointer;
+    font-size: x-large;
+    padding: 3px 3px;
+    border: solid 1px whitesmoke;
+    text-align: left;
+    border-radius: 0px 3px 3px 0px;
+}
+.header-searchform form button:hover{
+    box-shadow: 2px 0px rgb(189, 168, 168)
+    
+}
+
+
+.header-icons{
+    color: rgb(31, 26, 59);
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.header-boxes{
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    margin-right: 0px;
+    padding: 3px;
+    align-content: center;
+}
+.header h4{
+    margin: 0px 0px;
+    font-size: x-small;
+    color: rgb(0, 0, 0);
+}
+.header-banner{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    background-color: white;
+    padding: 10px 5% 5px;
+    margin-bottom: 10px;
+}
+
+.banner-boxes{
+    width: 70px;
+    height: 70px;
+    font-size: 14px;
+    align-content: center;
+}
+.banner-icons{
+    width: 49px;
+    height: 49px;
+    margin-left: 6px;
+    
+}
