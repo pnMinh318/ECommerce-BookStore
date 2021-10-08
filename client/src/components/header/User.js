@@ -4,7 +4,7 @@ function User() {
     return (
         <>
             <FiUser></FiUser>
-            <h4> Login</h4>
+            <h4 style={{textTransform:'uppercase'}}> Login</h4>
         </>
 
     )

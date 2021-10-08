@@ -10,6 +10,8 @@ a,ul li{
 }
 li a{
   display: block;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 body {
   background-color: var(--body-container);
@@ -36,6 +38,7 @@ code {
   background-color: var(--main-menu);
   display: flex;
   height: 400px;
+  border: solid 0.5px #f5deb338;
 }
 .app-main-navbar{
   
@@ -53,16 +56,19 @@ code {
   background-color: #aecbf6;
 }
 .navbar ul{
-  height: fit-content;
+  height: auto;
   width: 100%;
   margin-block-start: 0cm;
   margin-block-end: 0cm;
   padding-inline-start: 0px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .navbar ul li{
   margin: 0;
   padding: 0;
+  justify-self: stretch;
 }
 .navbar li a{
   padding: 8px 0px;
@@ -70,7 +76,8 @@ code {
   color: black;
   text-align: left;
   padding-left: 15px;
-}
+  height: 55.2px;
+ }
 .navbar li a:hover{
   background-color: #FAFAFA;
   color: black;
@@ -104,7 +111,6 @@ code {
 .slider-img{
   height: 100%;
   width: 100%;
-  border-radius: 10px;
   cursor: pointer;
 }
 .arrow{
@@ -170,8 +176,13 @@ code {
 button:active{
   box-shadow: 0 1px #666;
   transform: translateY(1px);
+  /* transition: ease 0.5s; */
 }
 
-.footer-container{
-  color: #2d69c4;
+.footer-wrapper{
+  background-color: #2d69c4;
+   height: 320px;
+   display: 'block';
+   color: white;
+   box-shadow: 0 4px 8px 0 rgb(63 33 33);
 }

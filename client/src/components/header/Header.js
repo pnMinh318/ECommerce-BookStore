@@ -1,14 +1,14 @@
 import React from 'react'
 import './header.css'
 import shopLogo from './fahasa-logo.png'
-import { BsSearch } from 'react-icons/bs'
 
 import { IconContext } from 'react-icons/lib'
-import Cart from './Cart'
+import Cart from '../../redux/bindings/Cart'
+//import Cart from'./Cart'
 import Noti from './Noti'
 import User from './User'
-import Banner from './Banner'
-import Number from './Number'
+// import Banner from './Banner'
+// import Number from './Number'
 function Header() {
     return (
         <>
@@ -31,9 +31,9 @@ function Header() {
                             <Cart></Cart>
                             {/* <Number></Number> */}
                         </div>
-                        <div className='header-boxes'>
+                        {/* <div className='header-boxes'>
                             <Noti></Noti>
-                        </div>
+                        </div> */}
                         <div className='header-boxes'>
                             <User></User>
                             {/* <Number></Number> */}

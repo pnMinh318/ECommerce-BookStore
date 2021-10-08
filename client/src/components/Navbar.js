@@ -5,7 +5,7 @@ function Navbar() {
         <div className='app-main-navbar'>
             <div className='navbar' style={{ display: 'block' }}>
                 <p style={{ textAlign: 'center', margin: 0, padding: '10px 0px', backgroundColor: 'orange' }}> <b>DANH SÁCH THỂ LOẠI</b> </p>
-                <ul style={{ boxSizing: 'border-box', height: 'auto' }}  >
+                <ul style={{ height: 'auto' }}  >
                     <li>
                         <a href='/'>Kinh dị
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></a>
