@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Dropdown() {
+function Dropdown({content,toggle}) {
 
     const [isOpen,setIsOpen] = useState(false)
 

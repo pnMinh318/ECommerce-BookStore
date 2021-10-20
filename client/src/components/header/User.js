@@ -1,10 +1,15 @@
 import React from 'react'
 import { FiUser } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 function User() {
     return (
         <>
-            <FiUser></FiUser>
-            <h4 style={{textTransform:'uppercase'}}> Login</h4>
+            <Link to='/login'>
+                <FiUser></FiUser>
+                <h4 > Login</h4>
+            </Link>
+
+
         </>
 
     )

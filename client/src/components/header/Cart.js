@@ -1,19 +1,23 @@
 import React from 'react'
-import { useState } from 'react'
 import { IoCartOutline } from 'react-icons/io5'
-function Cart({ items, totalPrice }) { //items (array), price : number
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+function Cart() { //items (array), price : number
 
-
-    //const [curret,setCurrent]= useState(items)
+    const { products, totalPrice } = useSelector(state => state.cart)
     return (
         <>
+            <Link to='/cart' style={{textDecoration:'none'}}>
                 <IoCartOutline></IoCartOutline>
-                {`(${items.length})`}
-            {
-                (items === 0 && items.totalPrice!==0) ?
-                    <h4 style={{ textTransform: 'uppercase' }}>Cart</h4> :
-                    <h4 style={{ textTransform: 'uppercase' }}> {`Cart ${totalPrice}$`}</h4>
-            }
+                {`(${products.length})`}
+
+                {
+                    products.length === 0 ?
+                        <h4 style={{ textTransform: 'uppercase' }}>Cart</h4> :
+                        <h4 style={{ textTransform: 'uppercase' }}> {`${totalPrice}$`}</h4>
+                }
+            </Link>
+
         </>
     )
 }

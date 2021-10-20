@@ -5,4 +5,15 @@ const couponSchema = mongoose.Schema({
     expireDate: Date
 })
 
+// const CartItemSchema = new mongoose.Schema(
+//     {
+//       product: { ref: 'Product' },
+//       name: String,
+//       price: Number,
+//       count: Number,
+//       user: { ref: 'User' },
+//     },
+//     { timestamps: true }
+//   );
+  
 export const CouponModel= mongoose.model('Coupon',couponSchema)

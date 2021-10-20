@@ -21,7 +21,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  letter-spacing: normal;
 }
 
 code {
@@ -180,9 +180,13 @@ button:active{
 }
 
 .footer-wrapper{
+  top: 80%;
   background-color: #2d69c4;
-   height: 320px;
-   display: 'block';
-   color: white;
-   box-shadow: 0 4px 8px 0 rgb(63 33 33);
+  height: 320px;
+  display: 'block';
+  color: white;
+  box-shadow: 0 4px 8px 0 rgb(63 33 33);
+}
+Link{
+  text-decoration: none;
 }

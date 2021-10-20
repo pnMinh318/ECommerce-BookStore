@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { VscTriangleLeft, VscTriangleRight } from 'react-icons/vsc'
+import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io'
 
-function Slides({imgsData}) {
+function Slides({ imgsData }) {
     // const imgsData = [
     //     {
     //         src: 'https://toidicodedao.files.wordpress.com/2019/12/photo-1544716278-e513176f20b5-e1577168352807.jpeg?w=672&h=372&crop=1',
@@ -31,7 +31,9 @@ function Slides({imgsData}) {
     return (
         <>
 
-            <VscTriangleLeft className='arrow' onClick={prevSlide} ></VscTriangleLeft>
+            <span className='arrow'>
+                <IoIosArrowDropleft  onClick={prevSlide} ></IoIosArrowDropleft>
+            </span>
             {imgsData.map((img, index) => {
                 return (
                     <>
@@ -41,7 +43,10 @@ function Slides({imgsData}) {
                     </>
                 )
             })}
-            <VscTriangleRight className='arrow' onClick={nextSlide}></VscTriangleRight>
+            <span className='arrow'>
+                <IoIosArrowDropright onClick={nextSlide}></IoIosArrowDropright>
+            </span>
+
         </>
     )
 

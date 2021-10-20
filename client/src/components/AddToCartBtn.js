@@ -1,8 +1,14 @@
 import React from 'react'
-function AddToCartBtn({item,ADD_TO_CART}) {
-    return (    
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../redux/actions/cartActions'
+function AddToCartBtn({ product }) {
+
+    const dispatch = useDispatch()
+
+    return (
         <>
-            <button onClick={()=>ADD_TO_CART(item)}>Add to Cart</button>
+            <button style={{outline:'none',border:'none'}}
+                onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
         </>
     )
 }

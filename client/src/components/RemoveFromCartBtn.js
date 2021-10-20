@@ -1,9 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { removeFromCart } from '../redux/actions/cartActions'
+function RemoveFromCartBtn({ product }) {
 
-function RemoveFromCartBtn({ item, REMOVE_FROM_CART }) {
+    const dispatch = useDispatch()
+    
     return (
         <>
-            <button onClick={() => REMOVE_FROM_CART(item)}>Remove From Cart</button>
+            <button onClick={() => dispatch(removeFromCart(product))}>Remove From Cart</button>
         </>
     )
 }

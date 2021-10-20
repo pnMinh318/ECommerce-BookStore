@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import usersRouter from './routers/usersRouter.js'
-import booksRouter from './routers/booksRouter.js'
+import productsRouter from './routers/productsRouter.js'
 import couponsRouter from './routers/couponsRouter.js'
 import ordersRouter from './routers/ordersRouter.js'
 import mongoose from 'mongoose'
@@ -26,7 +26,8 @@ mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true })
     console.log(error);
   });
 
-app.get('/users',usersRouter)
-app.get('/books',booksRouter)
-app.get('/coupons',couponsRouter)
-app.get('/orders',ordersRouter)
+app.get('/api/users',usersRouter)
+app.get('/api/products/:id',productsRouter)
+app.get('/api/products',productsRouter)
+app.get('/api/coupons',couponsRouter)
+app.get('/api/orders',ordersRouter)

@@ -1,7 +1,6 @@
-import { ObjectId } from 'bson'
 import mongoose from 'mongoose'
 
-const orderSchema = mongoose.Schema({
+const categorySchema = mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -13,4 +12,4 @@ const orderSchema = mongoose.Schema({
     { timestamps: true }
 )
 
-export const OrderModel = mongoose.model('Order', orderSchema)
+export const CategoryModel = mongoose.model('Order', categorySchema)

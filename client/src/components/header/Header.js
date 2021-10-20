@@ -1,26 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import './header.css'
 import shopLogo from './fahasa-logo.png'
-
 import { IconContext } from 'react-icons/lib'
-import Cart from '../../redux/bindings/Cart'
-//import Cart from'./Cart'
-import Noti from './Noti'
+
+
+import Cart from './Cart'
 import User from './User'
-// import Banner from './Banner'
-// import Number from './Number'
+
+
+
 function Header() {
+
+
     return (
         <>
             <div className='header'>
-                <a href='/'>
+                <Link to='/'>
                     <img src={shopLogo} alt='Logo' className='header-logo' />
-                </a>
+                </Link>
                 <IconContext.Provider value={{ className: 'header-icons', size: '25px' }}>
-
                     <div className='header-searchform'>
                         <form action='' method='get'>
-                            <input placeholder='Tìm kiếm...' id='header-searchbar'  />
+                            <input placeholder='.........' id='header-searchbar'  />
                             <button type="submit" >Search</button>
                         </form>
 
@@ -29,23 +32,17 @@ function Header() {
                     <div style={{ display: 'flex' }}>
                         <div className='header-boxes'>
                             <Cart></Cart>
-                            {/* <Number></Number> */}
                         </div>
-                        {/* <div className='header-boxes'>
-                            <Noti></Noti>
-                        </div> */}
+                        
                         <div className='header-boxes'>
                             <User></User>
+                            {/* <span onClick={toggleLoginForm()}>Login</span> */}
                             {/* <Number></Number> */}
                         </div>
                     </div>
-
                 </IconContext.Provider>
             </div>
-            <div style={{backgroundColor:'#FEF9F3'}}>
-            {/* <Banner></Banner> */}
-
-            </div>
+            
         </>
     )
 }
