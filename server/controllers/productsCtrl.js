@@ -1,5 +1,4 @@
 import { ProductModel } from "../models/ProductModel.js";
-
 export const getBooks = async (req, res) => {
     try {
         // for (let index = 0; index < 10; index++) {
@@ -31,7 +30,6 @@ export const getBookByID = async (req, res) => {
     try {
         const id = req.params.id
         console.log('id:',id) 
-        //const data = await ProductModel.find()
         const data = await ProductModel.findOne({ _id: id })
         console.log('data:',data)
         res.json(data)

@@ -1,54 +1,67 @@
 
 const cartInitState = {
-
     products: [],
     totalPrice: 0
 }
 
-const ADD_TO_CART = 'ADD_TO_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-// export const addToCart = (item) => {
-//     return {
-//         type: ADD_TO_CART,
-//         payload: item
-//     }
-// }
-// export const removeFromCart = (item) => {
-//     return {
-//         type: REMOVE_FROM_CART,
-//         payload: item
-//     }
-// }
+
 
 const cartReducer = (state = cartInitState, action) => {
     switch (action.type) {
         case 'ADD_TO_CART':
-
-            // state.products.map(product => {
-            //     console.log(product)
-            //     if (product._id === action.payload._id) {
-            //         let cartQuantity={cartQuantity : 1}
-            //         product = { ...product, cartQuantity }
+            // const product = { ...action.payload, cartQuantity: 1 }
+            // const existedProductIndex = state.products.findIndex((product) => product._id === action.payload._id)
+            // if (existedProductIndex >= 0) {
+            //     //trong kho - cartqty >=1 mới đc add
+            //     if (state.products[existedProductIndex].stock - state.products[existedProductIndex].cartQuantity >= 1) {
+            //         // nếu trong cart chưa có sp thì quantity =1... có rồi thì +1
+            //         state.products[existedProductIndex].cartQuantity += 1
+            //         //tổng tiền
+            //         state.totalPrice += state.products[existedProductIndex].price
             //     }
-            //     else {
-            //         state.products = [...state.products, action.payload]
-            //     }
-            // });
-
-            // nếu trong cart chưa có sp thì quantity =1... có rồi thì +1
+            // }
+            const product = { ...action.payload, cartQuantity: 1 }
+            const existedProduct = state.products.find((product) => product._id === action.payload._id)
+            if (existedProduct !== undefined) {
+                //trong kho - cartqty >=1 mới đc add
+                if (existedProduct.cartQuantity < 5  //chỉ cho phép mua tối đa số lượng là 5
+                    && (existedProduct.stock - existedProduct.cartQuantity >= 1)) { //  trong kho - cartqty >=1 mới đc add
+                    // nếu trong cart chưa có sp thì quantity =1... có rồi thì +1
+                    existedProduct.cartQuantity += 1
+                    //tổng tiền
+                    state.totalPrice += existedProduct.price
+                    alert('thêm thành công')
+                }
+            }
+            else {
+                state.products = [...state.products, product]
+                state.totalPrice += action.payload.price
+                alert('thêm thành công')
+            }
+            //console.log(state)
             return {
-                ...state,
-                products: [...state.products, action.payload],//, action.payload],
-                totalPrice: state.totalPrice + action.payload.price
-            };
+                ...state
+            }; // cần phải destructure để return object nếu không sẽ object trong object           
+
+        case 'UPDATE_ITEM_QUANTITY':
+            let updateItem = state.products.find(item => item._id === action.payload.id)
+            // tổng tiền mới = tổng tiền cũ - qt cũ * đơn giá + qty mới * đơn giá
+            state.totalPrice = state.totalPrice - updateItem.cartQuantity * updateItem.price + action.payload.newQuantity * updateItem.price
+            // phải update tiền trước khi update qty
+            updateItem.cartQuantity = action.payload.newQuantity;
+
+            return {
+                ...state
+            }
         case 'REMOVE_FROM_CART':
-            let rest
-            [action.payload, ...rest] = state.products
-            console.log(rest)
+            state.products = state.products.filter((product) => product._id !== action.payload.id)
+            let newTotalPrice = 0
+            state.products.forEach(product => {
+                newTotalPrice += product.price * product.cartQuantity
+            });
             return {
                 ...state,
-                products: rest, // giá tiền ok rồi còn remove object ra chưa xong
-                totalPrice: state.totalPrice - action.payload.price
+                totalPrice: newTotalPrice
             };
 
 

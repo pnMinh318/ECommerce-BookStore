@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaFacebookSquare, FaInstagram, FaTwitch } from 'react-icons/fa'
-
+import './footer.css'
 function Footer() {
     return (
         <div className='footer-wrapper' style={{ backgroundColor: '#2d69c4', height: 300, display: 'block', color: 'white' }}>

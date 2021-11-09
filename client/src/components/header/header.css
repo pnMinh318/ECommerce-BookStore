@@ -25,10 +25,14 @@
     height: min-content;
     font-size: x-large;
     padding: 3px 20px;
-    border: solid 0px  ;
+    border: none  ;
     text-align: left;
     background-color: #ffffff;
     outline: none; /*cái này dùng để xóa viền khi click vào input*/
+}
+input#header-searchbar:focus{
+    transition: 0.5s ease;
+    border: solid 1px rgba(64, 108, 240, 0.49);
 }
 .header-searchform{ 
     box-sizing: border-box;

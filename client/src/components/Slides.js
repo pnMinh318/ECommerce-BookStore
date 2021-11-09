@@ -27,7 +27,7 @@ function Slides({ imgsData }) {
     useEffect(() => {
         const timer = setTimeout(() => nextSlide(), 5000);
         return () => clearTimeout(timer);
-    }, [current]);
+    }, [current,nextSlide]);
     return (
         <>
 

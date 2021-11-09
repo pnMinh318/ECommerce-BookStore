@@ -17,8 +17,7 @@ function LoginForm() {
                 <div className='close-btn' onClick={openForm()}>&times;</div>
             </Link>
             <div className='form'>
-                <h2>Login</h2>
-                <form>
+                <form id='login-form' action='login' method='post'>
                     <div className='form-element'>
                         <label htmlFor='email'>Email</label>
                         <input type='text' id='email' placeholder='Enter Email'></input>
@@ -29,13 +28,13 @@ function LoginForm() {
                     </div>
                     <div className='form-element'>
                         <input type='checkbox' id='remember-me'></input>
-                        <label htmlFor='remember-me'>Remember Me</label>
+                        <label htmlFor='remember-me' id='remember'>Remember Me</label>
                     </div>
                     <div className='form-element'>
                         <button type='submit' >Sign In</button>
                     </div>
                     <div className='form-element'>
-                        <a href=''>Forgot Password?</a>
+                        <Link to='/'>Forgot Password?</Link>
                     </div>
                 </form>
             </div>

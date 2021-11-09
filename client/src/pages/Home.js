@@ -48,10 +48,10 @@ function MainMenu() {
                 </div>
             </div>
             <div className='category-noibat' style={{ backgroundColor: '#FAFAFA', height: 350, marginTop: 10 }}>
-              <p style={{ textAlign: 'center', fontWeight: 600, margin: 0, backgroundColor: '#94baf3', borderRadius: 3, paddingTop: 10, paddingBottom: 10 }}>SAN PHAM NOI BAT</p>
-              <div className='container' style={{ display: 'flex', justifyContent: 'space-evenly', boxSizing: 'border-box' }}>
-                <ItemCards items={items}></ItemCards>
-              </div>
+                <p style={{ textAlign: 'center', fontWeight: 600, margin: 0, backgroundColor: '#94baf3', borderRadius: 3, paddingTop: 10, paddingBottom: 10 }}>SAN PHAM NOI BAT</p>
+                <div className='container' style={{ display: 'flex', justifyContent: 'space-evenly', boxSizing: 'border-box' }}>
+                    <ItemCards items={items}></ItemCards>
+                </div>
             </div>
         </div>
     )
