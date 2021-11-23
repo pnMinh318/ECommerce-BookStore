@@ -5,7 +5,7 @@ import { Card } from 'react-bootstrap'
 import AddToCartBtn from './AddToCartBtn'
 //import RemoveFromCartBtn from './RemoveFromCartBtn'
 function ItemCard({ item }) {
-    const src = 'https://surfaceviet.vn/wp-content/uploads/2020/05/surface-book-3-tai-tphcm.jpg'
+    const src = 'https://img.freepik.com/free-psd/book-cover-mockup_125540-572.jpg?size=626&ext=jpg'
     return (
         
         <>

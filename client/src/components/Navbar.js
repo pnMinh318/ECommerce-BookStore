@@ -8,7 +8,11 @@ function Navbar() {
                 <p style={{ textAlign: 'center', margin: 0, padding: '10px 0px', backgroundColor: 'orange' }}> <b>DANH SÁCH THỂ LOẠI</b> </p>
                 <ul style={{ height: 'auto' }}  >
                     <li>
-                        <Link to='/products'>Kinh dị
+                        <Link to='/products'>Truyện tranh
+                            <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
+                    </li>
+                    <li  >
+                        <Link to='/products'>Sách giáo khoa
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
                     </li>
                     <li  >
@@ -16,15 +20,11 @@ function Navbar() {
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
                     </li>
                     <li  >
-                        <Link to='/products'>Kinh dị
+                        <Link to='/products'>Tiểu thuyết
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
                     </li>
                     <li  >
-                        <Link to='/products'>Kinh dị
-                            <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
-                    </li>
-                    <li  >
-                        <Link to='/'>Kinh dị
+                        <Link to='/'>Khoa học viễn tưởng
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
                     </li>
                 </ul>

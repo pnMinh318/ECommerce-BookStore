@@ -5,7 +5,7 @@ const productsRouter= express.Router()
 
 
 
-productsRouter.get('/api/products/:id',getBookByID)
-productsRouter.get('/api/products',getBooks)
-productsRouter.post('/products',createBook)
+productsRouter.route('/api/products/:id').get(getBookByID)
+productsRouter.route('/api/products').get(getBooks)
+//productsRouter.post('/products',createBook)
 export default productsRouter

@@ -34,7 +34,7 @@ function ProductDetails({ match }) {
                                 <Slides imgsData={imgsData} fluid='true' ></Slides>
 
                             </div> */}
-                                <Image src='https://surfaceviet.vn/wp-content/uploads/2020/05/surface-book-3-tai-tphcm.jpg'
+                                <Image src='https://img.freepik.com/free-psd/book-cover-mockup_125540-453.jpg?size=626&ext=jpg'
                                     fluid='true' style={{ margin: 'auto' }}>
 
                                 </Image>

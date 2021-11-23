@@ -21,13 +21,13 @@ function Header() {
                     <img src={shopLogo} alt='Logo' className='header-logo' />
                 </Link>
                 <IconContext.Provider value={{ className: 'header-icons', size: '25px' }}>
-                    <div className='header-searchform'>
+                    {/* <div className='header-searchform'>
                         <form action='' method='get'>
                             <input placeholder='.........' id='header-searchbar'  />
                             <button type="submit" >Search</button>
                         </form>
 
-                    </div>
+                    </div> */}
 
                     <div style={{ display: 'flex' }}>
                         <div className='header-boxes'>

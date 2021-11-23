@@ -24,12 +24,10 @@ function App() {
     <Provider store={store}>
 
       <Router>
-        <Switch > {/* dùng Switch để khi Route trúng 1 đường thì sẽ không route tiếp các component khác */}
-          {/* <React.Fragment>
-          </React.Fragment> */}
-          <Route computedmatch component={LoginForm} path='/login' ></Route>
+       
+          <Route component={LoginForm} path='/login' exact ></Route>
 
-          <div computedmatch='true' id='App' style={{ letterSpacing: '0px' }}>
+          <div id='App' style={{ letterSpacing: '0px' }}>
             <Header></Header>
             <Route component={Home} path='/' exact></Route> {/* trang home không sài bootstrap nên ko bọc container được*/}
             <Container >
@@ -40,7 +38,6 @@ function App() {
             <Route></Route> {/*rout không trúng gì thì ở lại trang hiện tại */}
             <Footer></Footer>
           </div>
-        </Switch>
 
       </Router>
 
