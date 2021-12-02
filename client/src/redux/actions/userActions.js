@@ -13,8 +13,8 @@ export const login = (email, password) => async (dispatch) => {
         const config = {
             headers: { 'Content-Type': 'application/json' }
         }
-        console.log('actions',email,password)
-        const { data } = await axios.post('/api/users/login', { email , password }, config)
+        console.log('actions', email, password)
+        const { data } = await axios.post('/api/users/login', { email, password }, config)
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -28,4 +28,9 @@ export const login = (email, password) => async (dispatch) => {
             payload: error //chưa xong
         })
     }
+}
+
+export const logout = () => (dispatch) => {
+    localStorage.removeItem('user')
+    dispatch({ type: USER_LOGOUT })
 }

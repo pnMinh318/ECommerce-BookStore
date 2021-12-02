@@ -9,7 +9,7 @@ function AddToCartBtn({ product }) {
         <>
             {
                 (<button style={{ outline: 'none', border: 'none' }}
-                    onClick={() => dispatch(addToCart(product))} disabled={product.stock === 0 }>Add to Cart</button>)
+                    onClick={() => dispatch(addToCart(product))} disabled={product.stock === 0 }>Thêm vào giỏ</button>)
             }
         </>
     )

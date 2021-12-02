@@ -38,7 +38,7 @@ function Slides({ imgsData }) {
                 return (
                     <>
                         {index === current &&
-                            (<img src={img.src} alt={img.alt} className='slider-img' key={img.alt}>
+                            (<img src={img.src} alt={img.alt} className='slider-img' key={img.src}>
                             </img>)}
                     </>
                 )
