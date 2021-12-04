@@ -1,8 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { FiUser } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom'
-import { NavDropdown } from 'react-bootstrap'
 
 import { logout } from '../../redux/actions/userActions'
 function User() {
@@ -17,32 +15,25 @@ function User() {
     }
     return (
         <>
-            <FiUser></FiUser>
-
             {user ?
-                (
-                    <>
-                        <h4 > {user.name} </h4>
-                        <NavDropdown id='user-name'>
+                <div className="header__nav">
 
-                            <NavDropdown.Item>Profile
-                                <Link to='/profile' style={{ textDecoration: 'none' }}>
-                                </Link>
-
-                            </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => logoutHandler()}>LOGOUT</NavDropdown.Item>
-                        </NavDropdown>
-                    </>
-                )
+                    <div className="dropdown">
+                        <Link to='/' className="text-decoration-none">
+                            {user.name}
+                        </Link>
+                        <div className="dropdown-content">
+                            <p onClick={() => logoutHandler()}>Đăng xuất</p>
+                            {!user.isAdmin && <Link to='/admin-home'>AdminPage</Link>}
+                        </div>
+                    </div>
+                </div>
                 :
-                <Link to='/login' >
-                    <h4 > Login </h4>
+                <Link to='/login' className="header__nav text-decoration-none" >
+                    Đăng nhập
                 </Link>
             }
-
-
         </>
-
     )
 }
 

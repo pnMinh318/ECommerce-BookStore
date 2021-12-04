@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { listProducts } from '../redux/actions/productActions'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Carousel } from 'react-bootstrap'
 
 import ItemCard from '../components/ItemCard'
 import Spinners from '../components/Spinners'
@@ -22,6 +22,31 @@ function Products() {
     //xl: số item
     return (
         <>
+            {/* {
+                loading ?
+                    <Spinners></Spinners> :
+                    error ?
+                        <div style={{ textAlign: 'center', margin: '20% 0px' }}>
+                            <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
+                        </div> :
+                        <>
+                               
+                            <Row sm={12} md={12} lb={12} xl={12} >
+                                {
+                                    products.map((product) => {
+                                        return (
+                                            <Col key={product._id}>
+                                                <ItemCard item={product} key={product._id} >
+                                                </ItemCard>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                
+                            </Row>
+                        </>
+            } */}
+             <>
             {
                 loading ?
                     <Spinners></Spinners> :
@@ -129,19 +154,15 @@ function Products() {
                 {
                     loading ? <h2>Loading</h2> : error ? <h2>error</h2> :
                         <ItemCards items={products} >
-
-
                         </ItemCards>
-
                     // products.map((product) => (
                     //     <>
                     //     <h2>{product.name}</h2>))
                     //     </>
-
                 }
-
             </div> */}
 
+        </>
         </>
     )
 }

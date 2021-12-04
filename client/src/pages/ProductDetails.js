@@ -44,7 +44,7 @@ function ProductDetails({ match }) {
                                                 style={{ fontSize: '30px', fontWeight: '900' }}>
                                                 {product.name}
                                             </div>
-                                            <div className='py-3'>
+                                            <div className='py-3 '>
                                                 {`Nhà cung cấp : ${product.details['Tác giả']}`}
                                                 <br></br>
                                                 {`Nhà xuất bản : ${product.details['NXB']}`}
@@ -69,7 +69,7 @@ function ProductDetails({ match }) {
                                     style={{ minHeight: '400px', backgroundColor: 'whitesmoke', borderRadius: '15px' }}>
                                     <div className='pt-4 '
                                         style={{ borderBottom: '5px solid black', fontSize: '1.5rem' }}>
-                                        <p>CHI TIẾT SẢN PHẨM</p>
+                                        <p className='text-info'>CHI TIẾT SẢN PHẨM</p>
                                     </div>
                                     <div style={{ display: 'flex' }}>
                                         <div className='w-50 p-5 font-font-weight-lighter'>

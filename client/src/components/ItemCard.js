@@ -21,8 +21,8 @@ function ItemCard({ item }) {
                     <Card.Title as='div' variant='top' className='mr-auto pb-1' style={{ textAlign: 'left',minHeight:'50px' }}>
                         {item.name}</Card.Title>
                 </Link>
-                <Card.Text as='span' className='text-center' >
-                    ${item.price}
+                <Card.Text as='span' className='text-center text-danger' >
+                    {item.price}đ
                 </Card.Text>
 
 
