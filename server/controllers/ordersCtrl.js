@@ -5,6 +5,31 @@ export const getOrders = async (req, res) => {
         const data = await OrderModel.find()
         res.status(200).json(data)
     } catch (error) {
+        res.status(500).json(error)
+    }
+}
+export const getOrderByID = async (req, res) => {
+    try {
+        const data = await OrderModel.findById(req.params.id)
+        if (data) {
+            res.status(200).json(data)
+        }
+        else {
+            res.json({ message: 'Order not found' })
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+export const getOrdersByUserID = async (req, res) => {
+    try {
+        const data = await OrderModel.find({ user: req.user._id })
+        if (data) {
+            res.status(200).json(data)
+        } else {
+            res.json({ message: 'My orders not found' })
+        }
+    } catch (error) {
         res.status(500).json(data)
 
     }
@@ -37,12 +62,60 @@ export const createOrder = async (req, res) => {
             isPaid: false,
             isDelivered: false,
         })
-        console.log('neworder',newOrder)
+        console.log('neworder', newOrder)
         const createdOrder = await newOrder.save()
-        res.status(201).json(createdOrder) //201:something was created
+        res.status(201).json(createdOrder)
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
 
+    }
+}
+export const updateOrderToDelivered = async (req, res) => {
+    try {
+        const data = await OrderModel.findById(req.params.id)
+        if (data) {
+            console.log(data.paymentMethod)
+            if (data.paymentMethod !== 'COD') {
+                data.isDelivered = true
+                data.deliveredDate = Date.now()
+            } else {
+                data.isDelivered = true
+                data.deliveredDate = Date.now()
+                data.isPaid = true
+                data.paidDate = Date.now()
+            }
+            const updatedOrder= await data.save()
+            res.status(201).json(updatedOrder)
+        }
+        else {
+            res.status(404)
+            throw new Error('Order not found')
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+export const updateOrderToPaidPaypal = async (req, res) => {
+    try {
+        const data = await OrderModel.findById(req.params.id)
+        if (data) {
+            data.isPaid = true
+            data.paidDate = Date.now()
+            data.paymentResult = {
+                id: req.body.id,
+                status: req.body.status,
+                email_address: req.body.payer.email_address,
+                update_time: req.body.update_time
+            }
+            const updatedOrder= await data.save()
+            res.json(updatedOrder)
+        }
+        else {
+            res.status(404)
+            throw new Error('Order not found')
+        }
+    } catch (error) {
+        res.status(500).json(error)
     }
 }

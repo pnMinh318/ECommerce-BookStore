@@ -70,8 +70,9 @@ td{
 }
 
 .userInfo{
-    height: 60px;
-    padding-left: 50px;
+    min-height: 60px;
+    padding: 0 3rem;
+    margin-bottom: 2rem;
 }
 
 div.userInfo{
@@ -80,7 +81,8 @@ div.userInfo{
 
 input.userInfo__input {
     width: 100%;
-    border: 0.5px #03020224;
+    border: 1px #03020224;
+    margin-bottom: 1px;
     border-style: hidden;
     border-bottom-style: solid;
     outline: none;
@@ -111,8 +113,22 @@ button.createOrder{
       border-radius: 5px;
      align-content: center; 
      outline: none;
+     border: 2px solid white
+}
+button.createOrder:hover{
+    border: 2px solid rgb(221, 83, 83);
 }
 button.createOrder:disabled{
 background-color: black;
 opacity: 0.5;
+}
+
+.goback{
+    width: fit-content;
+    padding: .75rem .25rem;
+    border-radius: 05px;
+}
+h6.goback:hover{
+    transition: .15s ease-in-out;
+    background-color: rgb(197, 192, 192);
 }

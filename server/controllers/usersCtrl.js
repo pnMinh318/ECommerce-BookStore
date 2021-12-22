@@ -6,8 +6,9 @@ import generateToken from "../utils/generateToken.js";
 export const authUser = asyncHandler(async (req, res) => {
     try {
         const { email, password } = req.body
-        const user = await UserModel.findOne({ email: email,password:password })
-        if (user) {// && (await user.matchPassword(password))) {
+        const user = await UserModel.findOne({ email: email, password: password })
+        //console.log(await user.matchPassword(password))
+        if (user){// && (await user.matchPassword(password))) {
             res.json({
                 _id: user._id,
                 email: user.email,
@@ -23,7 +24,33 @@ export const authUser = asyncHandler(async (req, res) => {
         console.log(error)
     }
 })
-
+//@ POST api/users
+export const registerUser = asyncHandler(async (req, res) => {
+    const { name, email, password } = req.body
+    console.log(name, email, password)
+    const userExists = await UserModel.findOne({ email })
+    console.log(userExists)
+    if (userExists) {
+        res.status(400).json({error:'User already existed'})
+        throw new Error('User already existed')
+    }
+    //const user = await UserModel.create({ name: name, email: email, password: password, isAdmin: false }) // chưa xong
+    const user = new UserModel({ name, email, password })
+    await user.save()
+    console.log(user)
+    if (user) {
+        res.status(201).json({ //201:something created
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new Error('Invalid User Data ')
+    }
+})
 //@ GET api/users/profile
 //@ access private
 export const getUserProfile = asyncHandler(async (req, res) => {
@@ -42,55 +69,28 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     }
 })
 
-//@ POST api/users/login
-export const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
-    console.log(name, email, password)
-    const userExists = await UserModel.findOne({ email })
-    console.log(userExists)
-    if (userExists) {
-        res.status(400)
-        throw new Error('User already existed')
+
+//@ GET api/users
+//@ access private/admin
+export const getUserByID = asyncHandler(async (req, res) => {
+    const user = await UserModel.findById(req.params.id)
+    if (user) {
+        res.status(200).json(user)
+    } else {
+        res.status(404)
+        throw new Error('User not found')
     }
-    //const user = await UserModel.create({ name: name, email: email, password: password, isAdmin: false }) // chưa xong
-    const user = new UserModel({name,email,password})
-    await user.save()
-    console.log(user)
-    // if (user) {
-    //     res.status(201).json({ //201:something created
-    //         _id: user._id,
-    //         email: user.email,
-    //         name: user.name,
-    //         isAdmin: user.isAdmin,
-    //         token: generateToken(user._id)
-    //     })
-    // } else {
-    //     res.status(400)
-    //     throw new Error('Invalid User Data ')
-    // }
 })
 
-export const getUsers = async (req, res) => {
-    try {
-        const user = new UserModel({
-            username: 'user2',
-            pwd: 'pass2',
-            email: 'email2@gmail.com',
-            phone: 3456145661,
-            firstname: 'name',
-            lastname: 'name',
-            address: 'address',
-            age: 21
-        })
-        await user.save()
-        const data = await UserModel.find()
-        res.status(200).json(data)
-        console.log(data)
-    } catch (error) {
-        res.status(500).json({ error: error })
-        console.log(error)
-    }
-}
+
+
+// get all users
+//@ GET api/users
+//@ access private/admin
+export const getUsers = asyncHandler(async (req, res) => {
+    const users = await UserModel.find({})
+    res.json(users)
+})
 
 export const createUser = async (req, res) => {
     try {
@@ -105,22 +105,42 @@ export const createUser = async (req, res) => {
     }
 }
 
-export const updateUser = async (req, res) => {
+export const updateUser = asyncHandler(async (req, res) => {
     try {
-        const data = req.body()
-        const updateUser = await UserModel.findOneAndUpdate({ _id: data._id }, user, { new: true }) //tham số thứ 3: nhận dữ liệu mới đc update 
-        res.status(200).json(updateUser)
+        const user = await UserModel.findById(req.params.id)
+        if (user) {
+            user.name = req.body.name || user.name
+            user.email = req.body.email || user.email
+            user.isAdmin = req.body.isAdmin
+            // if(req.body.password){
+            //     user.password= req.body.password || user.password
+            // }
+        }
+        const updateUser = await user.save()
+        res.status(200).json({
+            _id: updateUser._id,
+            name: updateUser.name, 
+            email: updateUser.email,
+             isAdmin: updateUser.isAdmin
+        })
     } catch (error) {
         res.status(500).json({ error: error })
         console.log(error)
     }
-}
+})
 
+//@ DELETE api/users/:id
+//@ protect,admin
 export const deleteUser = async (req, res) => {
     try {
-        const data = req.body()
-        await UserModel.findOneAndRemove({ _id: data._id }, user) //tham số thứ 3: nhận dữ liệu mới đc update 
-        res.status(200)
+        const user = await UserModel.findById(req.params.id)
+        if (user) {
+            await user.remove()
+            res.json({ message: 'User removed successfully' })
+        } else {
+            res.status(404)
+            throw new Error('User not found')
+        }
     } catch (error) {
         res.status(500).json({ error: error })
         console.log(error)

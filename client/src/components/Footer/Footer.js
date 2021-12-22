@@ -28,7 +28,7 @@ function Footer() {
             </div>
           </div>
           <div style={{ height: 100, borderTop: 'solid 1px white', margin: '0px 20px' }}>
-            <a>Privacy Policy. Term and conditions</a>
+            <a href='/'>Privacy Policy. Term and conditions</a>
             <p>Copyright &copy; 2021</p>
           </div>
         </div>

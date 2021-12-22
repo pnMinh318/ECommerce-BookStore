@@ -1,7 +1,7 @@
 
 .header__rightcomponent{
     float:right;
-    display: inline-block;
+    /* display: inline-block; */
 }
 .header-logo{
     height: fit-content;
@@ -14,31 +14,30 @@
 }
 /* Style the header with a grey background and some padding */
 .header {
-    overflow: hidden;
+    /* overflow: hidden; */
     color: white;
     padding: 20px 10px;
     height: 100px;
     padding: 0px 150px;
     margin-bottom: 20px;
     box-shadow: 0px 4px 8px 0px rgb(53 48 48 / 36%);
-
+    
   }
   
   /* Style the header links */
   .header__nav {
+    background-color: white;
     text-decoration: none;
     color: rgb(26, 12, 82);
     float: left;
     text-align: center;
-    margin-top: 40px;
-    padding: 0px 12px 0px;
+    margin: 40px 0px 10px 10px;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 18px;
-    line-height: 25px;
-    display: inline-block;
+    font-size: 1rem;
+    /* display: inline-block; */
     position: relative;
-    
+    padding: 0rem .25rem;
   }
   
   /* Change the background color on mouse-over */
@@ -46,6 +45,7 @@
     color: rgb(109, 107, 106);
   border-bottom: 5px solid rgb(124, 121, 121);
   transition: 0.3s ease-in;
+  opacity: 1;
 }
 
 /* Style the active/current link*/
@@ -64,7 +64,9 @@
   
   /* Float the link section to the right */
   .header-right {
+    /* font-size: .5rem; */
     float: right;
+    margin-right: 3rem;
   }
   
   /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
@@ -79,33 +81,58 @@
     }
   }
 
-.dropdown {
+
+.link{
+    padding: 0px;
+    background-color: white;
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+  }
+.link:focus{
+    outline: none;
+  }
+  .dropdown__wrapper{
     position: relative;
-    display: inline-block;
   }
-  
-  .dropdown-content {
-      font-size: 10px;
-    display: none;
-    visibility: hidden;
-    position: absolute;
-    color: black;
-    background-color: #8b8282;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 5px 16px;
-    z-index: -1;
-    transform: translateX(-5em);  
-    transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
-}
-  
-  .dropdown:hover .dropdown-content,.dropdown:focus .dropdown-content {
+  .dropdown__menu{
     cursor: pointer;
-    visibility: visible;
-    display: block;
-    z-index: 1;
+    left: -50px;
+    font-size: 15px;
+    width: 160px;
+    position: absolute;
+    top: calc(100%);
+    background-color: bisque;
+    /* padding: .75rem; */
+    border-radius: .25rem;
+    box-shadow: 0 5px 15px 0 rgba(109, 107, 106,.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out,transform 150ms ease-in-out;
+    pointer-events: none;
+    z-index: 1; /* do uu tien */
+}
+
+  .dropdown__wrapper>.link:focus + .dropdown__menu{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
-  .dropdown-content:hover{
-      background-color: rgb(177, 166, 166);
-      transition: 0.1s ease-in;
+   .dropdown__menu:hover{
+    /* background-color: rgb(95, 89, 89); */
+    pointer-events: auto;
+  } 
+  .dropdown__menu:focus{ /* phải hover để bật pointer event lên rồi mới focus được */
+    background-color: rgb(0, 0, 0);
+    color: white;
+    transform: translateX(10px);
+  } 
+  
+  .dropdown__menu > .dropdown__content{
+    padding: .5rem 0rem;
+  }
+  .dropdown__menu > .dropdown__content:hover{
+    background-color: rgb(95, 89, 89);
+    /* color: white; */
+    pointer-events: auto;
   }

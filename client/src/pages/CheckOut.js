@@ -1,7 +1,7 @@
 //actions
 import { createOrder } from '../redux/actions/oderActions'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 //components
 import { Row, Col } from 'react-bootstrap'
@@ -10,16 +10,15 @@ import { RegionDropdown } from 'react-country-region-selector'
 import { Link } from 'react-router-dom'
 import Spinner from '../components/Spinners'
 //css
-import './checkout.css'
-function CheckOut() {
+import '../assets/checkout.css'
+function CheckOut({ history }) {
 
 
-    const shippingPrice = 25000
     const dispatch = useDispatch()
     //global state
     const { products, totalPrice } = useSelector(state => state.cart)
     const { user } = useSelector(state => state.userLogin)
-    const { loading, success } = useSelector(state => state.order)
+    const { loading, success, order: createdOrder } = useSelector(state => state.orderCreate)
     //form
     const [name, setName] = useState('')
     const [email, setEmail] = useState(user.email ? user.email : '')
@@ -27,20 +26,20 @@ function CheckOut() {
     const [address, setAddress] = useState('')
     const [region, setRegion] = useState('')
     const [paymentMethod, setPaymentMethod] = useState('COD')
+    const shippingPrice = 25000
     const [availableToCreateOrder, setAvailableToCreateOrder] = useState(true)
     //function
     const validateEmptyString = (str) => {
         console.log(str)
     }
-    // useEffect(() => {
-    //     if (success) {
-    //         alert("Đặt hàng thành công")
-    //         console.log(order)
-    //     } else {
-    //         alert('Đặt hàng thất bại')
-    //         console.log(error)
-    //     }
-    // }, [success, error])
+    useEffect(() => {
+        console.log(shippingPrice)
+
+        if (success) {
+            dispatch({ type: 'ORDER_DETAILS_RESET' })
+            history.push(`/order/${createdOrder._id}`)
+        }
+    }, [success, history, createdOrder,dispatch,shippingPrice])
     const handlePlaceOrder = () => {
         const order = {
             user: user._id,
@@ -56,9 +55,6 @@ function CheckOut() {
         }
         console.log(order)
         dispatch(createOrder(order))
-        if (success) {
-            alert('Đặt hàng thành công')
-        }
     }
 
     return (
@@ -68,7 +64,7 @@ function CheckOut() {
                     <>
 
                         <Link to='/cart' className='text-decoration-none'>
-                            <h6 className='mb-3'>
+                            <h6 className='goback mb-3'>
                                 <BsArrowReturnLeft style={{ cursor: 'pointer' }}></BsArrowReturnLeft>Quay lại giỏ hàng
                             </h6>
                         </Link>
@@ -101,6 +97,14 @@ function CheckOut() {
                                                 onBlur={(e) => validateEmptyString(e.target.value)}>
                                             </input>
                                         </div>
+                                        <div className='userInfo pt-3'>
+                                            <label className='mt-1'>Tỉnh/Thành phố </label>
+                                            <RegionDropdown className='py-2 w-50 float-right' style={{ border: '2px solid black' }}
+                                                defaultOptionLabel='Chọn Tỉnh/Thành phố'
+                                                value={region}
+                                                country='Vietnam'
+                                                onChange={(val) => { console.log(val); setRegion(val) }} />
+                                        </div>
                                         <div className='userInfo'>
                                             <label>Địa chỉ giao hàng</label>
                                             <input className='userInfo__input'
@@ -109,20 +113,27 @@ function CheckOut() {
                                                 onBlur={(e) => validateEmptyString(e.target.value)}>
                                             </input>
                                         </div>
-                                        <div className='userInfo pt-3'>
-                                            <label>Tỉnh/Thành phố </label>
-                                            <RegionDropdown className='py-2 w-50 float-right' style={{ border: '2px solid black' }}
-                                                defaultOptionLabel='Chọn Tỉnh/Thành phố'
-                                                value={region}
-                                                country='Vietnam'
-                                                onChange={(val) => { console.log(val); setRegion(val) }} />
+                                        <div className='userInfo' style={{ backgroundColor: '#0000ff1f' }}>
+                                            <p className='mb-1 font1p2'>Phương thức thanh toán</p>
+                                            <input name='paymentMethod'
+                                                type='radio' value='COD'
+                                                checked={paymentMethod === 'COD'}
+                                                onChange={(e) => setPaymentMethod(e.target.value)}>
+                                            </input>
+                                            <label className='ml-5' htmlFor='paymentMethod'>Thanh toán khi giao hàng</label>
+                                            <br></br>
+                                            <input name='paymentMethod'
+                                                type='radio' value='Paypal'
+                                                checked={paymentMethod === 'Paypal'}
+                                                onChange={(e) => setPaymentMethod(e.target.value)}
+                                            ></input>
+                                            <label className='ml-5' htmlFor='paymentMethod'>Paypal</label>
                                         </div>
                                     </form>
                                 </div>
 
                             </Col>
                             <Col xs={6} md={6}  >
-
                                 <div style={{ minHeight: '350px' }}>
                                     {
                                         products.map((product) => {
@@ -134,7 +145,7 @@ function CheckOut() {
                                                     </div>
                                                     <div className='pl-3' >
                                                         <Link to='/cart' className='text-decoration-none'>
-                                                            <div className=' text-danger' style={{ fontSize: '1.2rem', height: '50px' }}> {product.name}</div>
+                                                            <div style={{ fontSize: '1rem', height: '50px' }}> {product.name}</div>
                                                         </Link>
                                                         <span>{product.price} * {product.cartQuantity}</span>
                                                         <br></br>
@@ -150,26 +161,13 @@ function CheckOut() {
                                     }
 
                                 </div>
-                                {/* <div className='paymentmethod mr-5 mb-3' style={{ backgroundColor: '#0000ff1f' }}>
-                        <div className='payment__Select text-center' >
-                            <label for='payment'>COD</label>
-                            <input type='radio'
-                                value='COD'
-                                name='payment'
-                                checked>
-                            </input>
-                            <label for='payment'>PayPal</label>
-                            <input type='radio'
-                                value='PayPal'
-                                name='payment'>
-                            </input>
-                        </div>
-                    </div> */}
+
                             </Col>
-                            <div>
+
+                            <div >
                                 <p>{`Tổng đơn hàng:${totalPrice}`}đ</p>
-                                <p>Phí vận chuyển:25,000đ</p>
-                                <p className='font1p2'> <b >{`Tổng cộng (đã bao gồm VAT):${totalPrice + shippingPrice}`} </b>đ</p>
+                                <p>Phí vận chuyển: {shippingPrice}đ</p>
+                                <p className='font1p2' style={{ color: 'red' }}> {`Tổng cộng (đã bao gồm VAT):${totalPrice + shippingPrice}`}đ</p>
                             </div>
                             <div className='ml-auto'>
                                 <button
@@ -177,9 +175,10 @@ function CheckOut() {
                                     onClick={() => handlePlaceOrder()}
                                     disabled={!availableToCreateOrder}
                                 >Xác nhận đơn hàng </button>
-
+                                {success && <p className='text-center' style={{ color: 'red' }} >Đặt hàng thành công</p>}
                             </div>
                         </Row>
+
                     </>
             }
         </>

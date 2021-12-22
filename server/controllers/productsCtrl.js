@@ -1,24 +1,15 @@
 import { ProductModel } from "../models/ProductModel.js";
 export const getBooks = async (req, res) => {
     try {
-        // for (let index = 0; index < 10; index++) {
-        //     let newBook = new ProductModel({
-        //         name : `book ${index}`,
-        //         // photo: [
-        //         //     {src: 'https://techkalzen.com/wp-content/uploads/2020/07/secret-class.jpg' } 
-        //         // ],
-        //         description: 'descrip',
-        //         price: 10+index,
-        //         //quantity: 10+index,
-        //         //author: '...',
-        //         category: 'category',
-        //         stock: index,
-        //         //language: 'Korean'
-        //     })
-        //     await newBook.save()
+        // const category = req.query.category 
+        // console.log('category:', req.query.category)
+        // let data
+        // if(category == undefined){
+        //     data = await ProductModel.find()
+        // }else{
+        //     data = await ProductModel.find({ category: category })
         // }
         const data = await ProductModel.find()
-        console.log(data)
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json({ error: error })
@@ -29,35 +20,72 @@ export const getBooks = async (req, res) => {
 export const getBookByID = async (req, res) => {
     try {
         const id = req.params.id
-        console.log('id:',id) 
+        console.log('id:', id)
         const data = await ProductModel.findOne({ _id: id })
-        console.log('data:',data)
+        console.log('data:', data)
         res.json(data)
     } catch (error) {
         res.status(500).json({ error: error })
     }
 }
-export const createBook = async (req, res) => {
+export const deleteProductByID = async (req, res) => {
     try {
-        const data = await req.body()
-        // const data = new BookModel({
-        //     name : 'book1',
-        //     cover: [
-        //         {src: 'https://techkalzen.com/wp-content/uploads/2020/07/secret-class.jpg' } 
-        //     ],
-        //     price: 'wtf',
-        //     quantity: 10,
-        //     authhor: '...',
-        //     category: 'Manhwa',
-        //     language: 'Korean'
-        // })
-        const newBook = new BookModel(data)
-        const book = await BookModel.save(newBook).then(console.log('book inserted'))
-        res.status(200).json(book)
+        const id = req.params.id
+        const product = await ProductModel.findById(id)
+        if (product) {
+            await product.remove()
+            res.json({ message: 'Product removed successfully' })
+        } else {
+            res.status(404).json({ error: 'Product Not Found' })
+        }
+    } catch (error) {
+        res.status(404).json({ error: error })
+    }
+}
+export const createProduct = async (req, res) => {
+    try {
+        const { name, price, details, img, description, category, stock, discount } = req.body
+        console.log(req.body)
+        const newProduct = new ProductModel({
+            name: name,
+            price: price,
+            details: details,
+            img: img,
+            description: description,
+            category: category,
+            stock: stock,
+            discount: discount
+        })
+        const createdProduct = await newProduct.save()
+        res.status(201).json(createdProduct)
     } catch (error) {
         res.status(500).json({ error: error })
 
     }
 
 }
+export const updateProduct = async (req, res) => {
+    try {
+        const { name, price, details, img, description, category, stock,discount } = req.body
+        console.log(name, price, details, img, description, category, stock, ' id:', req.params.id)
+        const product = await ProductModel.findById(req.params.id)
+        console.log(product)
+        if (product) {
+            product.name = name
+            product.price = price
+            product.details = details
+            product.description = description
+            product.category = category
+            product.stock = stock
+            product.img = img
+            product.discount = discount
+            const updatedProduct = await product.save()
+            res.json(updatedProduct)
+        } else {
+            res.status(404).json({ error: 'No product Found' })
+        }
+    } catch (error) {
+        res.status(404).json({ error: error })
+    }
 
+}

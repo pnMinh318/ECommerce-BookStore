@@ -8,7 +8,9 @@ function AddToCartBtn({ product }) {
     return (
         <>
             {
-                (<button style={{ outline: 'none', border: 'none' }}
+                (<button  className='card__button'
+                //     style={{ outline: 'none', border: 'none',
+                // backgroundColor:'rgb(208 197 62 / 50%)',color:'black' }}
                     onClick={() => dispatch(addToCart(product))} disabled={product.stock === 0 }>Thêm vào giỏ</button>)
             }
         </>

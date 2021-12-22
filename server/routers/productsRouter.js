@@ -1,11 +1,12 @@
 import express from 'express'
-import { getBooks,createBook, getBookByID } from '../controllers/productsCtrl.js'
+import { getBooks, createProduct, getBookByID, deleteProductByID, updateProduct } from '../controllers/productsCtrl.js'
+import { protect, isAdmin } from '../middleware/authMiddleware.js'
+const productsRouter = express.Router()
 
-const productsRouter= express.Router()
 
 
+productsRouter.route('/').get(getBooks).post(protect, isAdmin, createProduct)
+productsRouter.route('/:id').get(getBookByID).delete(protect, isAdmin, deleteProductByID).put(protect, isAdmin, updateProduct)
 
-productsRouter.route('/api/products/:id').get(getBookByID)
-productsRouter.route('/api/products').get(getBooks)
 //productsRouter.post('/products',createBook)
 export default productsRouter

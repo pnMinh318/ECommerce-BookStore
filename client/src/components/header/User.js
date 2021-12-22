@@ -17,16 +17,44 @@ function User() {
         <>
             {user ?
                 <div className="header__nav">
+                    <div className='dropdown__wrapper'>
+                        <button className='link'>{user.name}</button>
+                        <div className='dropdown__menu'>
+                            <div className=' dropdown__content'
+                                onClick={() => { history.push('/profile') }}>
+                                Thông tin cá nhân
+                            </div>
+                            {user.isAdmin &&
+                                <div className=' dropdown__content'
+                                    onClick={() => { history.push('/admin') }}>
+                                    Admin
+                                    
+                                </div>
+                            }
+                            <div className='dropdown__content'
+                                onClick={() => logoutHandler()}>
+                                Đăng xuất
+                            </div>
 
-                    <div className="dropdown">
+                        </div>
+
+
+
+                    </div>
+
+                    {/* <div className="user-dropdown">
                         <Link to='/' className="text-decoration-none">
                             {user.name}
                         </Link>
-                        <div className="dropdown-content">
-                            <p onClick={() => logoutHandler()}>Đăng xuất</p>
-                            {!user.isAdmin && <Link to='/admin-home'>AdminPage</Link>}
+                        <div className="user-dropdown-menu">
+                            <p className='link'
+                                onClick={() => logoutHandler()}>
+                                Đăng xuất</p>
+                            {!user.isAdmin &&
+                                <Link className='link'
+                                    to='/admin-home'>AdminPage</Link>}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 :
                 <Link to='/login' className="header__nav text-decoration-none" >

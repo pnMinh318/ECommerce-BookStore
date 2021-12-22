@@ -35,12 +35,9 @@ function Slides({ imgsData }) {
                 <IoIosArrowDropleft  onClick={prevSlide} ></IoIosArrowDropleft>
             </span>
             {imgsData.map((img, index) => {
-                return (
-                    <>
-                        {index === current &&
-                            (<img src={img.src} alt={img.alt} className='slider-img' key={img.src}>
-                            </img>)}
-                    </>
+                return (index === current &&
+                            (<img src={img.src} alt={img.alt} className='slider-img' key={img.key}>
+                            </img>)
                 )
             })}
             <span className='arrow'>

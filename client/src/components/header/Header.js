@@ -18,17 +18,12 @@ function Header() {
 
             <div className='header__img'></div>
             <div className="header">
-                <div className='header__nav '>
+                <div className='header__nav ' style={{marginLeft:'3rem'}}>
                     <Link
                         to='/'
                         className='text-decoration-none'
-                    ><FcHome className='pb-1'></FcHome>Home </Link>
+                    ><FcHome className='pb-1'></FcHome>Trang chủ </Link>
                 </div>
-                {/* <Link to='/'>
-                    <img  className='mt-3'
-                        src='https://previews.123rf.com/images/jovanas/jovanas1602/jovanas160201759/52212634-book-logo-sign-black.jpg'
-                        alt='Logo' className='header-logo' />
-                </Link> */}
                 <div className="header-right">
                     <Cart></Cart>
                     <User ></User>

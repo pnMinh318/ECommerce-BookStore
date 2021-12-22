@@ -1,0 +1,84 @@
+
+
+
+.form-element{
+    text-align: center;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+.form-element input{
+    padding: .75rem .25rem;
+    border: none;
+    border-bottom: 3px solid rgb(128, 128, 204);
+    outline: none;
+}
+
+.form-element input:focus{
+    border-bottom: 3px solid black;
+    transition: 0.15s ease-in-out;
+}
+
+.background{
+    background-image: url('https://us.123rf.com/450wm/neirfy/neirfy1806/neirfy180600295/103601719-flat-lay-frame-of-old-books-on-blue-background-with-copy-space-retro-toned.jpg?ver=6');
+    width: 100%;
+    height: 100%;
+}
+
+
+.center{
+    position: absolute;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 350px;
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    box-shadow: 1px 5px 18px #888888;
+}
+
+.center h4{
+    text-align: center;
+    padding: .5rem 0rem;
+    /* border-bottom: 1px solid #7e7373; */
+}
+
+.center form{
+    box-sizing: border-box;
+}
+
+form .text_field{
+    position: relative;
+    /* border-bottom: 2px solid #7e7373; */
+    padding:  .25rem .5rem ;
+}
+
+.text_field input{
+    margin-bottom: .5rem;
+    padding: .5rem .25rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 40px;
+    border-bottom: 1px solid black;
+}
+
+.text_field input:focus{
+   
+    border-bottom: 2px solid rgb(240, 9, 9);
+    transition: 0.2s ease-in;
+}
+
+
+
+.center button{
+    border-radius: .25rem;
+    margin: 10px 0;
+    padding: 0 30px;
+    height: 30px;
+    outline: none;
+    background-color: rgb(194, 184, 184);
+}
+.center button:hover{
+    background-color: #888888;
+}

@@ -3,9 +3,9 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 //reducers
 import cartReducer from './reducers/cartReducer'
-import { productListReducer, productDetailsReducer } from './reducers/productReducers'
-import { userLoginReducer } from './reducers/userReducer'
-import { orderCreateReducer } from './reducers/orderReducers'
+import { productListReducer, productDetailsReducer,productDeleteReducer,productCreateReducer, productUpdateReducer } from './reducers/productReducers'
+import { userLoginReducer,usersListReducer,usersDeleteReducer,userDetailsReducer,usersUpdateReducer } from './reducers/userReducer'
+import { ordersListReducer,orderCreateReducer,orderDetailsReducer,ordersMyListReducer,orderDeliverReducer, orderPayReducer } from './reducers/orderReducers'
 
 // const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 // const cartTotalPriceFromStorage = localStorage.getItem('cartTotalPrice') ? JSON.parse(localStorage.getItem('cartTotalPrice')) : 0
@@ -22,11 +22,23 @@ const initialState = {
 const middleware = [thunk]
 
 const reducers = combineReducers({
-    order: orderCreateReducer,
+    orderCreate: orderCreateReducer,
+    orderDetails: orderDetailsReducer,
+    orderMyLists: ordersMyListReducer,
+    orderList: ordersListReducer,
+    orderPay: orderPayReducer,
+    orderDeliver: orderDeliverReducer,
     cart: cartReducer,
     productList: productListReducer,
     productDetails: productDetailsReducer,
-    userLogin: userLoginReducer
+    productDelete: productDeleteReducer,
+    productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    userLogin: userLoginReducer,
+    userDetails: userDetailsReducer,
+    usersList: usersListReducer,
+    userDelete: usersDeleteReducer,
+    userUpdate: usersUpdateReducer,
 })
 const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware))) //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 export default store

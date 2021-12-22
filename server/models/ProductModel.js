@@ -7,7 +7,9 @@ const productSchema = mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        maxlength: 32,
+    },
+    details:{
+        type: Object
     },
     description: {
         type: String,
@@ -21,18 +23,19 @@ const productSchema = mongoose.Schema({
         maxlength: 32,
     },
     category: {
-        //type: ObjectId,
         type: String,
-        //ref: 'Category',
         required: true,
     },
     stock: {
         type: Number,
     },
-    // discount: {
-    //     type: Number,
-    //     default: 0,
-    // },
+    img:{
+        type: String
+    },
+    discount: {
+        type: Number,
+        default: 0,
+    },
     // photo: {
     //     data: Buffer,
     //     contentType: String,

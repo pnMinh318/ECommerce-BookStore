@@ -69,7 +69,7 @@ function ProductDetails({ match }) {
                                     style={{ minHeight: '400px', backgroundColor: 'whitesmoke', borderRadius: '15px' }}>
                                     <div className='pt-4 '
                                         style={{ borderBottom: '5px solid black', fontSize: '1.5rem' }}>
-                                        <p className='text-info'>CHI TIẾT SẢN PHẨM</p>
+                                        <p className='text-info'>THÔNG TIN CHI TIẾT</p>
                                     </div>
                                     <div style={{ display: 'flex' }}>
                                         <div className='w-50 p-5 font-font-weight-lighter'>
@@ -81,7 +81,7 @@ function ProductDetails({ match }) {
                                                     {
                                                         Object.keys(product.details).map((key) => {
                                                             return (
-                                                                <tr className='wtf'>
+                                                                <tr className='wtf' key={product.details[key]}>
                                                                     <th className='wtf'>{key}</th>
                                                                     <td className='wtf'>{product.details[key]}</td>
                                                                 </tr>

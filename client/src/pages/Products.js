@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { listProducts } from '../redux/actions/productActions'
-import { Row, Col, Carousel } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 import ItemCard from '../components/ItemCard'
 import Spinners from '../components/Spinners'
@@ -10,133 +10,81 @@ import Message from '../components/Message'
 function Products() {
 
     const dispatch = useDispatch()
+    const productList = useSelector(state => state.productList)
+    const { loading, products, error } = productList
 
-    useEffect(() => {   // dispatch 1 cái hàm listProducts action xuống reducer và xử lý bỏ vào store
+    const [filterArray, setFilterArray] = useState([])
+
+    const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
+        return str.toLowerCase().normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+    }
+    const handleFilter = (e, key, value) => {
+        e.preventDefault()
+        console.log('key: ', key)
+        console.log('val: ', value)
+        const newVal = strStandardlize(value)
+        const searchResult = products.filter(item =>
+            strStandardlize(item[key]).includes(newVal))
+        if (searchResult.length < 1) {
+            setFilterArray(products)
+        } else {
+            setFilterArray(searchResult)
+        }
+        //dispatch({type:'PRODUCT_LIST_SUCCESS',payload:filter})
+    }
+
+    useEffect(() => {
         dispatch(listProducts())
     }, [dispatch])
-
-    const productList = useSelector(state => state.productList) //chọn slice
-
-    const { loading, products, error } = productList
 
     //xl: số item
     return (
         <>
-            {/* {
-                loading ?
-                    <Spinners></Spinners> :
-                    error ?
-                        <div style={{ textAlign: 'center', margin: '20% 0px' }}>
-                            <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
-                        </div> :
-                        <>
-                               
-                            <Row sm={12} md={12} lb={12} xl={12} >
-                                {
-                                    products.map((product) => {
-                                        return (
-                                            <Col key={product._id}>
-                                                <ItemCard item={product} key={product._id} >
-                                                </ItemCard>
-                                            </Col>
-                                        )
-                                    })
-                                }
-                                
-                            </Row>
-                        </>
-            } */}
-             <>
+            <div className='mt-5 mb-3'>
+                <form className='text-right'
+                    onSubmit={(e) => handleFilter(e, 'name', e.target.elements.search__input.value)}>
+                    <input className='search__input'
+                        autoComplete='off'
+                        placeholder='Sách bạn muốn tìm'
+                        name='search__input'
+                        onEmptied={() => setFilterArray([])}></input>
+                    <button className='search__input' type='submit'> Tìm</button>
+                </form>
+
+            </div>
+
+            <div className='mb-3 text-left'>
+                <span className='mr-3'>Thể loại:</span>
+                <select className='px-3 py-2' defaultValue=''
+                    onChange={(e) => handleFilter(e, 'category', e.target.value)}>
+                    <option value={''}>-Xem tất cả-</option>
+                    <option value={'sach'}>Sách</option>
+                    <option value={'tieu thuyet'}>Tiểu thuyết</option>
+                    <option value={'sach giao khoa'}>Sách giáo khoa</option>
+                    <option value={'ngoai ngu'}>Sách ngoại ngữ</option>
+                    <option value={'truyen tranh'}>Truyện tranh</option>
+                </select>
+                <span className='ml-5 mr-3'>Giá:</span>
+                <select className='px-3 py-2' defaultValue=''
+                    onChange={(e) => handleFilter(e, 'category', e.target.value)}>
+                    <option value={''}>-Xem tất cả-</option>
+                    <option value={'sach'}>Trên 100K</option>
+                    <option value={'tieu-thuyet'}>Từ 50 đến 100K</option>
+                    <option value={'tieu-thuyet'}>Dưới 50K</option>
+
+                </select>
+            </div>
+
             {
-                loading ?
-                    <Spinners></Spinners> :
-                    error ?
-                        <div style={{ textAlign: 'center', margin: '20% 0px' }}>
-                            <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
-                        </div> :
-                        <Row>
-                            <Col xs={3} className='my-2' style={{
-                                height: 'fit-content', borderRadius: '15px',
-                                backgroundColor: '#cac7cf1f'
-                            }}> {/* ,border: '0.5px solid #00000047', boxShadow: '3px 1px 10px #c0bffe' */}
-                                <div className='ml-1 mt-4'>
-                                    <strong style={{ fontWeight: '500px' }}>THỂ LOẠI</strong>
-
-                                </div>
-                                <Row className='my-2 mx-1'>
-                                    <Col xs={12} md={9} >
-                                        <div> Khoa học-Kỹ thuật </div>
-                                    </Col>
-                                    <Col xs={6} md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                                <Row className='my-2 mx-1'>
-                                    <Col xs={12} md={9} >
-                                        <div> Văn học </div>
-                                    </Col>
-                                    <Col xs={6} md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                                <Row className='my-2 mx-1'>
-                                    <Col xs={12} md={9} >
-                                        <div> Tâm lý-Kỹ năng sống </div>
-                                    </Col>
-                                    <Col xs={6} md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                                <Row className='my-2 mx-1'>
-                                    <Col xs={12} md={9} >
-                                        <div> Truyện tranh </div>
-                                    </Col>
-                                    <Col xs={6} md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                                <Row className='my-2 mx-1'>
-                                    <Col xs={12} md={9} >
-                                        <div> Ngoại ngữ </div>
-                                    </Col>
-                                    <Col xs={6} md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                                <span>------------------------------------------</span>
-                                <div className='ml-1 mt-4'>
-                                    <strong>GIÁ</strong>
-
-                                </div>
-                                <Row className='my-2 mx-1'>
-                                    <Col md={9} >
-                                        <div>1-5$</div>
-                                        <div>5-10$</div>
-                                        <div>10-30$</div>
-                                        <div>trên 30$</div>
-
-                                    </Col>
-                                    <Col md={3} >
-                                        <input type='checkbox' className='ml-4'></input>
-                                        <input type='checkbox' className='ml-4'></input>
-                                        <input type='checkbox' className='ml-4'></input>
-                                        <input type='checkbox' className='ml-4'></input>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xs={9}>
-                                <Row>
-                                    {
-                                        // products.forEach((product) => {
-                                        //     if (product.stock > 0) {
-                                        //         [product].map((x) => (
-                                        //             <Col sm={9} md={6} lg={'auto'} xl={3} key={x._id}>
-                                        //                 <ItemCard item={x} key={x._id}>
-                                        //                 </ItemCard>
-                                        //             </Col>))
-                                        //     }
-                                        // })
-                                        products.map((product) => {
+                filterArray.length > 0 ?
+                    (<Row>
+                        <Col xs={12}>
+                            <Row>
+                                {loading ? <Spinners></Spinners>
+                                    : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
+                                        filterArray.map((product) => {
                                             return (
                                                 <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
                                                     <ItemCard item={product} key={product._id} >
@@ -144,27 +92,40 @@ function Products() {
                                                 </Col>
                                             )
                                         })
-                                    }
-                                </Row>
-                            </Col>
+                                }
+                            </Row>
+                        </Col>
+                    </Row>)
+                    :
+                    <>
+                        {
+                            loading ?
+                                <Spinners></Spinners> :
+                                error ?
+                                    <div style={{ textAlign: 'center', margin: '20% 0px' }}>
+                                        <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
+                                    </div> :
+                                    <Row>
+                                        <Col xs={12}>
+                                            <Row>
+                                                {
+                                                    products.map((product) => {
+                                                        return (
+                                                            <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
+                                                                <ItemCard item={product} key={product._id} >
+                                                                </ItemCard>
+                                                            </Col>
+                                                        )
+                                                    })
+                                                }
+                                            </Row>
+                                        </Col>
 
-                        </Row>
+                                    </Row>
+                        }
+                    </>
             }
-            {/* <div>
-                {
-                    loading ? <h2>Loading</h2> : error ? <h2>error</h2> :
-                        <ItemCards items={products} >
-                        </ItemCards>
-                    // products.map((product) => (
-                    //     <>
-                    //     <h2>{product.name}</h2>))
-                    //     </>
-                }
-            </div> */}
-
-        </>
         </>
     )
 }
-
 export default Products
