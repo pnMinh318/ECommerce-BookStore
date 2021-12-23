@@ -46,8 +46,7 @@ function OrderDetails({ match }) {
                 setSdkReady(true)
             }
         }
-        // xử lý paypal trong này
-    }, [dispatch, orderId, successDeliver, errorDeliver, order, successPay, errorPay])
+    }, [dispatch,order, orderId, successDeliver, errorDeliver, successPay, errorPay])
     const markAsDeliveredHandler = () => {
         dispatch(deliverOrder(orderId))
     }

@@ -57,7 +57,7 @@ const orderSchema = mongoose.Schema({
     deliveredDate: {
         type: Date,
     },
-    paymentResule: {
+    paymentResult: {
         type: Object
     }
 },

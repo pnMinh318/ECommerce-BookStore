@@ -12,7 +12,8 @@ function Products() {
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productList)
     const { loading, products, error } = productList
-
+    const [filterPrice, setFilterByPrice] = useState('')
+    const [filterCategory, setFilterByCategory] = useState('')
     const [filterArray, setFilterArray] = useState([])
 
     const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
@@ -22,8 +23,6 @@ function Products() {
     }
     const handleFilter = (e, key, value) => {
         e.preventDefault()
-        console.log('key: ', key)
-        console.log('val: ', value)
         const newVal = strStandardlize(value)
         const searchResult = products.filter(item =>
             strStandardlize(item[key]).includes(newVal))
@@ -32,14 +31,44 @@ function Products() {
         } else {
             setFilterArray(searchResult)
         }
-        //dispatch({type:'PRODUCT_LIST_SUCCESS',payload:filter})
     }
+    
+    const priceFilter = (array, price) => {
+        const priceFilter = price.split(' ')
+        if (priceFilter[0] === 'above') {
+            return array.filter(product => product.price > (Number(priceFilter[1]) * 1000))
+        } else if (priceFilter[0] === 'under') {
+            return array.filter(product => product.price < (Number(priceFilter[1]) * 1000))
+        } else if (priceFilter[0] === 'from') {
+            return array.filter(product => {
+                return product.price > (Number(priceFilter[1]) * 1000) &&
+                    (product.price < (Number(priceFilter[3]) * 1000))
+            })
+        }
+        else {
+            return array
+        }
+    }
+    const categoryFilter = (array, category) => {
+        return (array.filter(product => {
+            return strStandardlize(product.category).includes( category )
+        }))
+    }
+    useEffect(() => {
+        let result = products
+        result = priceFilter(result,filterPrice)
+        result = categoryFilter(result,filterCategory)
+        setFilterArray(result)
+    }, [filterCategory,filterPrice])
 
     useEffect(() => {
-        dispatch(listProducts())
+            dispatch(listProducts())
     }, [dispatch])
 
-    //xl: số item
+    useEffect(() => {
+        (products.length > 0) && setFilterArray(products)
+    }, [products])
+
     return (
         <>
             <div className='mt-5 mb-3'>
@@ -58,7 +87,7 @@ function Products() {
             <div className='mb-3 text-left'>
                 <span className='mr-3'>Thể loại:</span>
                 <select className='px-3 py-2' defaultValue=''
-                    onChange={(e) => handleFilter(e, 'category', e.target.value)}>
+                    onChange={(e) => setFilterByCategory(e.target.value)}>
                     <option value={''}>-Xem tất cả-</option>
                     <option value={'sach'}>Sách</option>
                     <option value={'tieu thuyet'}>Tiểu thuyết</option>
@@ -68,62 +97,63 @@ function Products() {
                 </select>
                 <span className='ml-5 mr-3'>Giá:</span>
                 <select className='px-3 py-2' defaultValue=''
-                    onChange={(e) => handleFilter(e, 'category', e.target.value)}>
+                    onChange={(e) => setFilterByPrice(e.target.value)}>
                     <option value={''}>-Xem tất cả-</option>
-                    <option value={'sach'}>Trên 100K</option>
-                    <option value={'tieu-thuyet'}>Từ 50 đến 100K</option>
-                    <option value={'tieu-thuyet'}>Dưới 50K</option>
+                    <option value={'above 100'}>Trên 100K</option>
+                    <option value={'from 50 to 100'}>Từ 50 đến 100K</option>
+                    <option value={'under 50'}>Dưới 50K</option>
 
                 </select>
             </div>
 
+            { loading && <Spinners> </Spinners>}
             {
-                filterArray.length > 0 ?
-                    (<Row>
-                        <Col xs={12}>
-                            <Row>
-                                {loading ? <Spinners></Spinners>
-                                    : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
-                                        filterArray.map((product) => {
-                                            return (
-                                                <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
-                                                    <ItemCard item={product} key={product._id} >
-                                                    </ItemCard>
-                                                </Col>
-                                            )
-                                        })
-                                }
-                            </Row>
-                        </Col>
-                    </Row>)
-                    :
-                    <>
-                        {
-                            loading ?
-                                <Spinners></Spinners> :
-                                error ?
-                                    <div style={{ textAlign: 'center', margin: '20% 0px' }}>
-                                        <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
-                                    </div> :
-                                    <Row>
-                                        <Col xs={12}>
-                                            <Row>
-                                                {
-                                                    products.map((product) => {
-                                                        return (
-                                                            <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
-                                                                <ItemCard item={product} key={product._id} >
-                                                                </ItemCard>
-                                                            </Col>
-                                                        )
-                                                    })
-                                                }
-                                            </Row>
-                                        </Col>
+                filterArray.length > 0 &&
+                (<Row>
+                    <Col xs={12}>
+                        <Row>
+                            {loading ? <Spinners></Spinners>
+                                : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
+                                    filterArray.map((product) => {
+                                        return (
+                                            <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
+                                                <ItemCard item={product} key={product._id} >
+                                                </ItemCard>
+                                            </Col>
+                                        )
+                                    })
+                            }
+                        </Row>
+                    </Col>
+                </Row>)
 
-                                    </Row>
-                        }
-                    </>
+                // <>
+                //     {
+                //         loading ?
+                //             <Spinners></Spinners> :
+                //             error ?
+                //                 <div style={{ textAlign: 'center', margin: '20% 0px' }}>
+                //                     <Message variant='danger' msg={'Sorry some thing went wrong'}>   </Message>
+                //                 </div> :
+                //                 <Row>
+                //                     <Col xs={12}>
+                //                         <Row>
+                //                             {
+                //                                 products.map((product) => {
+                //                                     return (
+                //                                         <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
+                //                                             <ItemCard item={product} key={product._id} >
+                //                                             </ItemCard>
+                //                                         </Col>
+                //                                     )
+                //                                 })
+                //                             }
+                //                         </Row>
+                //                     </Col>
+
+                //                 </Row>
+                //     }
+                // </>
             }
         </>
     )

@@ -33,7 +33,19 @@ function ProductsListAdmin() {
         }
     }, [dispatch, history, user, successDelete])
 
-
+    // const handleFilter = (e, key, value) => {
+    //     e.preventDefault()
+    //     console.log('key: ', key)
+    //     console.log('val: ', value)
+    //     const newVal = strStandardlize(value)
+    //     const searchResult = products.filter(item =>
+    //         strStandardlize(item[key]).includes(newVal))
+    //     if (searchResult.length < 1) {
+    //         setFilterArray(products)
+    //     } else {
+    //         setFilterArray(searchResult)
+    //     }
+    // }
 
 
     const handleDeleteProduct = (id) => {
