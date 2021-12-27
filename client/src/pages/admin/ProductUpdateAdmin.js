@@ -61,7 +61,7 @@ function ProductUpdateAdmin({ match }) {
         product.details = details
         product.description = description
         product.category = category
-        product.stock = stock
+        product.stock = Number(stock)
         product.img = img
         product.discount = Number(discount)
         dispatch(productUpdate(product))
@@ -105,8 +105,8 @@ function ProductUpdateAdmin({ match }) {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="description">Mô tả</label>
-                                        <textarea style={{ height: '165px',maxHeight:'165px',minHeight:'165px' }}
-                                            className="form-control"
+                                        <textarea
+                                            className="form-control textarea"
                                             onChange={(e) => setDescription(e.target.value)}
                                             rows="3"
                                             defaultValue={description || ''}>
@@ -132,6 +132,15 @@ function ProductUpdateAdmin({ match }) {
                                     </Form.Group>
                                 </Col>
                                 <Col xs={4}> {/* chi tiết sách*/}
+                                    <Form.Group controlId='details'>
+                                        <Form.Label>Số lượng trong kho</Form.Label>
+                                        <Form.Control
+                                            type='number' min={0} step={1} max={1000}
+                                            value={stock || 0}
+                                            required
+                                            onChange={(e) => setInStock(e.target.value)}>
+                                        </Form.Control>
+                                    </Form.Group>
                                     <Form.Group controlId='details'>
                                         <Form.Label>Tác giả</Form.Label>
                                         <Form.Control
@@ -189,7 +198,9 @@ function ProductUpdateAdmin({ match }) {
 
                                 </Col>
                             </Row>
-                            <Button className='float-right' type='submit' variant='primary'> Cập nhật</Button>
+                            <div className='text-center'>
+                                <Button type='submit' variant='primary'> Cập nhật</Button>
+                            </div>
                         </Form>
             }
         </>

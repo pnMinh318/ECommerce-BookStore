@@ -12,11 +12,8 @@ function ItemCard({ item }) {
             <Card border="light" className='my-2  m-0' style={{ opacity: '0.8' }}>
                 {
                     item.discount > 0 && (
-                        <div className='text-center'
-                            style={{
-                                float: 'right', borderRadius: '5px', height: '20px', color: 'white',
-                                backgroundColor: 'red', width: '50px', position: 'absolute'
-                            }}
+                        <div className='text-center card-discount'
+                            
                         >{item.discount}%</div>)
                 }
 

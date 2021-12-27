@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import usersRouter from './routers/usersRouter.js'
 import productsRouter from './routers/productsRouter.js'
-import couponsRouter from './routers/couponsRouter.js'
+// import couponsRouter from './routers/hcouponsRouter.js'
 import ordersRouter from './routers/ordersRouter.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
@@ -28,8 +28,8 @@ mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use('/api/products/', productsRouter)
 app.use('/api/orders/', ordersRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/users/:action', usersRouter)
+// app.use('/api/users', usersRouter)
+app.use('/api/users/', usersRouter)
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID)
 })

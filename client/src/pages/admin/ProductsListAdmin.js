@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { listProducts, productDelete } from '../../redux/actions/productActions'
@@ -13,13 +13,13 @@ function ProductsListAdmin() {
 
 
     const productsList = useSelector(state => state.productList)
-    const { loading, products, error } = productsList
-
-    const { loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector(state => state.productDelete)
-
-
     const userLogin = useSelector(state => state.userLogin)
     const { user } = userLogin
+
+    const [filterArray, setFilterArray] = useState([])
+    const { loading, products, error } = productsList
+    const { loading: loadingDelete, success: successDelete, error: errorDelete } = useSelector(state => state.productDelete)
+
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -28,25 +28,28 @@ function ProductsListAdmin() {
         dispatch({ type: 'PRODUCT_CREATE_RESET' })
         if (!user?.isAdmin) {
             history.push('/login')
-        }else{
+        } else {
             dispatch(listProducts())
         }
     }, [dispatch, history, user, successDelete])
+    useEffect(() => {
+        (products.length > 0) && setFilterArray(products)
+    }, [products])
 
-    // const handleFilter = (e, key, value) => {
-    //     e.preventDefault()
-    //     console.log('key: ', key)
-    //     console.log('val: ', value)
-    //     const newVal = strStandardlize(value)
-    //     const searchResult = products.filter(item =>
-    //         strStandardlize(item[key]).includes(newVal))
-    //     if (searchResult.length < 1) {
-    //         setFilterArray(products)
-    //     } else {
-    //         setFilterArray(searchResult)
-    //     }
-    // }
-
+    const handleFilter = (e, key, value) => {
+        e.preventDefault()
+        console.log('key: ', key)
+        console.log('val: ', value)
+        const newVal = strStandardlize(value)
+        const searchResult = products.filter(item =>
+            strStandardlize(item[key]).includes(newVal))
+        setFilterArray(searchResult)
+    }
+    const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
+        return str.toLowerCase().normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+    }
 
     const handleDeleteProduct = (id) => {
         if (window.confirm('Bạn có chắc xóa sản phẩm này?')) {
@@ -60,12 +63,22 @@ function ProductsListAdmin() {
                     <h1>Products</h1>
                 </Col>
                 <Col className='text-right'>
-                    <Button className='my-3' onClick={() => {history.push('/admin/product/create') }}>
+                    <Button className='my-3' onClick={() => { history.push('/admin/product/create') }}>
                         <i className='fas fa-plus'></i> Thêm sản phẩm
                     </Button>
                 </Col>
+
+
             </Row>
-            
+            <form className='mb-3'
+                onSubmit={(e) => handleFilter(e, 'name', e.target.elements.search__input.value)}>
+                <input className='search__input'
+                    autoComplete='off'
+                    placeholder='Sách bạn muốn tìm'
+                    name='search__input'
+                    onEmptied={() => setFilterArray([])}></input>
+                <button className='search__input' type='submit'> Tìm</button>
+            </form>
             {loadingDelete && <Spinners></Spinners>}
             {errorDelete && <Message variant='danger' msg='Xóa thất bại'></Message>}
             <div style={{ minHeight: '500px' }}>
@@ -84,7 +97,7 @@ function ProductsListAdmin() {
                                     </thead>
                                     <tbody>
                                         {
-                                            products.map(product =>
+                                            filterArray.map(product =>
                                             (<tr key={product._id}>
                                                 <td>{product._id}</td>
                                                 <td>{product.name}</td>

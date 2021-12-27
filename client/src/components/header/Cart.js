@@ -1,5 +1,5 @@
 import React from 'react'
-//import { IoCartOutline } from 'react-icons/io5'
+import { AiFillShopping } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 function Cart() { //items (array), price : number
@@ -8,8 +8,8 @@ function Cart() { //items (array), price : number
     return (
         <>
             <Link to='/cart' style={{ textDecoration: 'none' }} className="header__nav">
-                Giỏ hàng
-                {`(${products.length})`}
+                <AiFillShopping size={'1.5rem'}></AiFillShopping>
+                <small className='mt-2'> {`(${products.length})`}</small>
             </Link>
             
         </>

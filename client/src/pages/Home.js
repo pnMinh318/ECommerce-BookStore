@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { listNewestProducts } from '../redux/actions/productActions'
+
 import Navbar from '../components/Navbar'
 import Slides from '../components/Slides'
-import BC from '../assets/BC.jpg' //toa2n bo hinh deu 310x210
-import DC from '../assets/DC.png'
-import MOMO from '../assets/MOMO.jpg'
-import Moca from '../assets/Moca.png'
-// import ItemCards from '../components/ItemCards';
+import Spinners from '../components/Spinners'
+import Message from '../components/Message'
 
-function MainMenu() {
+
+function MainMenu({ history }) {
+
+    const dispatch = useDispatch()
+    const { loading, products, error } = useSelector(state => state.productNewest)
+    useEffect(() => {
+        dispatch(listNewestProducts())
+    }, [dispatch])
     const imgsData = [
         {
             key: 1,
-            src: 'https://toidicodedao.files.wordpress.com/2019/12/photo-1544716278-e513176f20b5-e1577168352807.jpeg?w=672&h=372&crop=1',
+            src: 'https://listsach.com/wp-content/uploads/2021/06/list-cau-noi-hay-ve-doc-sach-1024x576.jpg',
             alt: 'book2'
         },
         {
             key: 2,
-            src: 'https://cdn0.fahasa.com/media/magentothem/banner7/manga_comic_920_x_420.png',
+            src: 'https://www.netabooks.vn/Data/Sites/1/media/sach-2021/cay-cam-ngot-cua-toi/cay-cam-ngot-cua-toi.jpg',
             alt: 'book3'
         },
         {
@@ -25,30 +34,69 @@ function MainMenu() {
             alt: 'book4'
         }
     ]
-    
+
     return (
-        <div className='app-home-container'>
+        <div className=''>
+
             <div className='app-main-menu'>
                 <Navbar></Navbar>
-                <div className='app-main-slider' style={{ alignContent: 'center' }}>
-                    <Slides imgsData={imgsData}></Slides>
+                <Slides imgsData={imgsData}></Slides>
+
+            </div>
+            <div className='flex-column my-4' style={{ height: '150px' }}>
+                <Link to='/products'>
+                    <img className='w-50 h-100' src='https://cdn0.fahasa.com/media/wysiwyg/Thang-2-2020/New-arrivals-t2-596x186.jpg' alt=''></img>
+                </Link>
+                <Link to='/products'>
+                    <img className='w-50 h-100' src='https://cdn0.fahasa.com/media/wysiwyg/NGOAI-VAN-2018/AUG-2018/Bestsellers1920x350-111.jpg' alt=''></img>
+                </Link>
+            </div>
+            <div style={{ borderRadius: '10px 10px 0 0', backgroundColor: 'antiquewhite' }}>
+                <p className='text-uppercase mt-4 px-4 mb-0 pt-1'
+                    style={{ borderRadius: '10px 10px 0 0', backgroundColor: 'rgb(255 214 164 / 26%)', fontSize: '1.5rem' }}
+                >Mới nhất</p>
+
+                <div className='' style={{ display: 'flex', flexDirection: 'row' }}>
+                    {
+                        loading ? <Spinners></Spinners> : error ? <Message varient='danger' msg='Đã có lỗi xảy ra'></Message> :
+                            products.map(product => (
+                                <Card border="light" className='pb-5 mx-1 mb-4  m-0' style={{ opacity: '0.8' }} key={product._id}>
+                                    {
+                                        product.discount > 0 && (
+                                            <div className='text-center card-discount'
+                                            >{product.discount}%</div>)
+                                    }
+
+                                    <Link to={`products/${product._id}`} >
+                                        <Card.Img className='px-5 cartItem__img font1p2' src={product.img} variant='top' ></Card.Img>
+                                    </Link>
+                                    <Link to={`products/${product._id}`} className='text-decoration-none'>
+                                        <Card.Title as='div' variant='top' className='text-center mr-auto px-3'>
+                                            {product.name}</Card.Title>
+                                    </Link>
+                                    <Card.Text as='p' className='text-center m-0 card-product-price ' >
+                                        {product.price}đ
+                                        {
+                                            product.discount > 0 &&
+                                            (<small className='ml-3'
+                                                style={{ fontSize: '.7rem', color: 'grey', position: 'absolute' }}>
+                                                <del>{product.price + product.price * product.discount / 100}đ</del>
+                                            </small>)
+                                        }
+
+                                    </Card.Text>
+                                </Card>
+                            ))
+                    }
+
+                </div>
+                <div className='text-center'>
+                    <button className='px-5 h-100 mb-3 py-2 search__input' style={{borderRadius:'10px'}}
+                    onClick={() => history.push('/products')}
+                    >Xem tất cả</button>
                 </div>
             </div>
-            <div className='app-home-banner' >
-                <div className='app-home-banner-img'>
-                    <img src={BC} alt='banner'></img>
-                </div>
-                <div className='app-home-banner-img'>
-                    <img src={DC} alt='banner'></img>
-                </div>
-                <div className='app-home-banner-img'>
-                    <img src={MOMO} alt='banner'></img>
-                </div>
-                <div className='app-home-banner-img'>
-                    <img src={Moca} alt='banner'></img>
-                </div>
-            </div>
-            
+
         </div>
     )
 }

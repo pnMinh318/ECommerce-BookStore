@@ -21,10 +21,13 @@ const PRODUCT_UPDATE_REQUEST = 'PRODUCT_UPDATE_REQUEST'
 const PRODUCT_UPDATE_SUCCESS = 'PRODUCT_UPDATE_SUCCESS'
 const PRODUCT_UPDATE_FAIL = 'PRODUCT_UPDATE_FAIL'
 
+const PRODUCT_NEWEST_REQUEST = 'PRODUCT_NEWEST_REQUEST'
+const PRODUCT_NEWEST_SUCCESS = 'PRODUCT_NEWEST_SUCCESS'
+const PRODUCT_NEWEST_FAIL = 'PRODUCT_NEWEST_FAIL'
+
 export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
-        //console.log(category)
         const { data } = await axios.get(`/api/products`)  //nên destructure để lấy mỗi cái data
 
         dispatch({
@@ -35,7 +38,24 @@ export const listProducts = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_LIST_FAIL,
-            payload: error //chưa xong
+            payload: error 
+        })
+    }
+}
+export const listNewestProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: PRODUCT_NEWEST_REQUEST })
+        const { data } = await axios.get(`/api/products/newest`)  //nên destructure để lấy mỗi cái data
+
+        dispatch({
+            type: PRODUCT_NEWEST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_NEWEST_FAIL,
+            payload: error 
         })
     }
 }
@@ -53,7 +73,7 @@ export const productDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
-            payload: error //chưa xong
+            payload: error 
         })
     }
 }

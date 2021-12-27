@@ -1,5 +1,5 @@
 import { OrderModel } from '../models/OrderModel.js'
-
+import {ProductModel} from '../models/ProductModel.js'
 export const getOrders = async (req, res) => {
     try {
         const data = await OrderModel.find()
@@ -74,6 +74,13 @@ export const createOrder = async (req, res) => {
 export const updateOrderToDelivered = async (req, res) => {
     try {
         const data = await OrderModel.findById(req.params.id)
+        data.orderItems.forEach(async item => {
+            const x= await ProductModel.findById(item._id)
+            console.log('item stock trước khi save',x.name,':',x.stock)
+            x.stock = x.stock - item.cartQuantity
+            const update = await x.save()
+            console.log('item stock sau khi save',update.name,':',update.stock)
+        });
         if (data) {
             console.log(data.paymentMethod)
             if (data.paymentMethod !== 'COD') {

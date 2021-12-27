@@ -43,7 +43,8 @@ function LoginForm({ location }) {
         <div className='center'>
             <Link to='/' ><span style={{ marginLeft: '10px', color: 'red', fontSize: '20px' }}>&times;</span></Link>
             <h4>Đăng nhập</h4>
-            <form id='login-form' action='login' method='post' onSubmit={(e) => submitFormHandler(e)}>
+            <form id='login-form' action='login' method='post' 
+            onSubmit={(e) => submitFormHandler(e)}>
                 <div className='text_field'>
                     <span>Email</span>
                     <input type='text' id='email' placeholder='Nhập Email'

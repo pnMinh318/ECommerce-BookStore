@@ -1,21 +1,21 @@
 import { ProductModel } from "../models/ProductModel.js";
 export const getBooks = async (req, res) => {
     try {
-        // const category = req.query.category 
-        // console.log('category:', req.query.category)
-        // let data
-        // if(category == undefined){
-        //     data = await ProductModel.find()
-        // }else{
-        //     data = await ProductModel.find({ category: category })
-        // }
-        const data = await ProductModel.find()
+        const category = req.query.category
+
+        let data
+        if (category) {
+            category.replace(' ','-')
+            data = await ProductModel.find({ category: category })
+            console.log(category)
+        } else {
+            data = await ProductModel.find({})
+        }
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json({ error: error })
 
     }
-
 }
 export const getBookByID = async (req, res) => {
     try {
@@ -66,10 +66,9 @@ export const createProduct = async (req, res) => {
 }
 export const updateProduct = async (req, res) => {
     try {
-        const { name, price, details, img, description, category, stock,discount } = req.body
-        console.log(name, price, details, img, description, category, stock, ' id:', req.params.id)
+        const { name, price, details, img, description, category, stock, discount } = req.body
         const product = await ProductModel.findById(req.params.id)
-        console.log(product)
+
         if (product) {
             product.name = name
             product.price = price
@@ -88,4 +87,12 @@ export const updateProduct = async (req, res) => {
         res.status(404).json({ error: error })
     }
 
+}
+export const getNewestBooks = async (req, res) => {
+    try {
+        const data = await ProductModel.find({}).sort({ createdAt: -1 }).limit(4)
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json({ error: error })
+    }
 }

@@ -30,24 +30,23 @@ function App() {
 
       <Router>
         <Switch >
-          <Route component={LoginForm} path='/login' exact ></Route>
           <Route component={HomeAdmin} path='/admin/'></Route>
-
-          <div id='App' style={{ letterSpacing: '0px' }}>
-            <Header></Header>
-            <Route component={Home} path='/' exact></Route> {/* trang home không sài bootstrap nên ko bọc container được*/}
-            <Container style={{ minHeight: '200px' }}>
-              <Route component={Products} path='/products' exact></Route>
-              <Route component={ProductDetails} path='/products/:id' ></Route>
-              <Route component={CartItems} path='/cart' ></Route>
-              <Route component={CheckOut} path='/checkout' ></Route>
-              <Route component={OrderDetails} path='/order/:id'></Route>
-              <Route component={UserProfile} path='/profile'></Route>
-            </Container>
-            <Footer></Footer>
-
-          </div>
-
+          <> {/* thêm bracket để switch không warning*/}
+            <div id='App' style={{ letterSpacing: '0px' }}>
+              <Header></Header>
+              <Container >
+                <Route component={LoginForm} path='/login' exact ></Route>
+                <Route component={Home} path='/' exact></Route> {/* trang home không sài bootstrap nên ko bọc container được*/}
+                <Route component={Products} path='/products' exact></Route>
+                <Route component={ProductDetails} path='/products/:id' ></Route>
+                <Route component={CartItems} path='/cart' ></Route>
+                <Route component={CheckOut} path='/checkout' ></Route>
+                <Route component={OrderDetails} path='/order/:id'></Route>
+                <Route component={UserProfile} path='/profile'></Route>
+              </Container>
+              <Footer></Footer>
+            </div>
+          </>
         </Switch>
       </Router>
 

@@ -5,10 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { listOrders } from '../../redux/actions/oderActions'
 import Spinners from '../../components/Spinners'
 import Message from '../../components/Message'
-//import { useHistory } from 'react-router'
-
-
-
 
 function OrdersListAdmin({history}) {
 
@@ -23,7 +19,6 @@ function OrdersListAdmin({history}) {
     const { user } = userLogin
 
     const dispatch = useDispatch()
-    //const history = useHistory()
 
     useEffect(() => {
         if (!user?.isAdmin) {

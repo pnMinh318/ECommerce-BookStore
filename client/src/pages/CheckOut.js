@@ -33,13 +33,11 @@ function CheckOut({ history }) {
         console.log(str)
     }
     useEffect(() => {
-        console.log(shippingPrice)
-
         if (success) {
-            dispatch({ type: 'ORDER_DETAILS_RESET' })
             history.push(`/order/${createdOrder._id}`)
+            dispatch({type:'ORDER_CREATE_RESET'})
         }
-    }, [success, history, createdOrder,dispatch,shippingPrice])
+    }, [success, history, createdOrder,dispatch])
     const handlePlaceOrder = () => {
         const order = {
             user: user._id,

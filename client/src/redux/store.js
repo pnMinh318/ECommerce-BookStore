@@ -3,8 +3,8 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 //reducers
 import cartReducer from './reducers/cartReducer'
-import { productListReducer, productDetailsReducer,productDeleteReducer,productCreateReducer, productUpdateReducer } from './reducers/productReducers'
-import { userLoginReducer,usersListReducer,usersDeleteReducer,userDetailsReducer,usersUpdateReducer } from './reducers/userReducer'
+import { productListReducer, productDetailsReducer,productDeleteReducer,productCreateReducer, productUpdateReducer, productNewestReducer } from './reducers/productReducers'
+import { userLoginReducer,usersListReducer,usersDeleteReducer,userDetailsReducer,usersUpdateReducer,userUpdateProfileReducer, userProfileReducer } from './reducers/userReducer'
 import { ordersListReducer,orderCreateReducer,orderDetailsReducer,ordersMyListReducer,orderDeliverReducer, orderPayReducer } from './reducers/orderReducers'
 
 // const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
@@ -30,6 +30,7 @@ const reducers = combineReducers({
     orderDeliver: orderDeliverReducer,
     cart: cartReducer,
     productList: productListReducer,
+    productNewest: productNewestReducer,
     productDetails: productDetailsReducer,
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
@@ -37,8 +38,10 @@ const reducers = combineReducers({
     userLogin: userLoginReducer,
     userDetails: userDetailsReducer,
     usersList: usersListReducer,
+    userProfile: userProfileReducer,
     userDelete: usersDeleteReducer,
     userUpdate: usersUpdateReducer,
+    userUpdateProfile: userUpdateProfileReducer
 })
 const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware))) //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 export default store

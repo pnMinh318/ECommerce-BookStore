@@ -1,6 +1,7 @@
 import { UserModel } from "../models/UserModel.js";
 import asyncHandler from 'express-async-handler'
 import generateToken from "../utils/generateToken.js";
+import { ObjectId } from "mongodb";
 
 //@ POST api/users/login
 export const authUser = asyncHandler(async (req, res) => {
@@ -8,7 +9,7 @@ export const authUser = asyncHandler(async (req, res) => {
         const { email, password } = req.body
         const user = await UserModel.findOne({ email: email, password: password })
         //console.log(await user.matchPassword(password))
-        if (user){// && (await user.matchPassword(password))) {
+        if (user) {// && (await user.matchPassword(password))) {
             res.json({
                 _id: user._id,
                 email: user.email,
@@ -31,7 +32,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     const userExists = await UserModel.findOne({ email })
     console.log(userExists)
     if (userExists) {
-        res.status(400).json({error:'User already existed'})
+        res.status(400).json({ message: 'User already existed' })
         throw new Error('User already existed')
     }
     //const user = await UserModel.create({ name: name, email: email, password: password, isAdmin: false }) // chưa xong
@@ -65,6 +66,8 @@ export const getUserProfile = asyncHandler(async (req, res) => {
             email: user.email,
             name: user.name,
             isAdmin: user.isAdmin,
+            phone: user.phone,
+            address: user.address
         })
     }
 })
@@ -112,16 +115,13 @@ export const updateUser = asyncHandler(async (req, res) => {
             user.name = req.body.name || user.name
             user.email = req.body.email || user.email
             user.isAdmin = req.body.isAdmin
-            // if(req.body.password){
-            //     user.password= req.body.password || user.password
-            // }
         }
         const updateUser = await user.save()
         res.status(200).json({
             _id: updateUser._id,
-            name: updateUser.name, 
+            name: updateUser.name,
             email: updateUser.email,
-             isAdmin: updateUser.isAdmin
+            isAdmin: updateUser.isAdmin
         })
     } catch (error) {
         res.status(500).json({ error: error })
@@ -129,6 +129,31 @@ export const updateUser = asyncHandler(async (req, res) => {
     }
 })
 
+export const updateUserProfile = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user._id)
+        console.log(user)
+
+        if (user) {
+            user.name = req.body.name || user.name
+            user.email = req.body.email || user.email
+            user.phone = req.body.phone || user.phone
+            user.address = req.body.address || user.address
+            if(req.body.password){
+                user.password= req.body.password 
+            }
+            const updatedUser = await user.save()
+            res.json(updatedUser)
+        } else {
+            res.status(404)
+            throw new Error('No user found')
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: error })
+        console.log(error)
+    }
+}
 //@ DELETE api/users/:id
 //@ protect,admin
 export const deleteUser = async (req, res) => {

@@ -24,15 +24,11 @@ function Products() {
     const handleFilter = (e, key, value) => {
         e.preventDefault()
         const newVal = strStandardlize(value)
-        const searchResult = products.filter(item =>
+        const searchResult = filterArray.filter(item =>
             strStandardlize(item[key]).includes(newVal))
-        if (searchResult.length < 1) {
-            setFilterArray(products)
-        } else {
-            setFilterArray(searchResult)
-        }
+        setFilterArray(searchResult)
     }
-    
+
     const priceFilter = (array, price) => {
         const priceFilter = price.split(' ')
         if (priceFilter[0] === 'above') {
@@ -51,18 +47,18 @@ function Products() {
     }
     const categoryFilter = (array, category) => {
         return (array.filter(product => {
-            return strStandardlize(product.category).includes( category )
+            return strStandardlize(product.category).includes(category)
         }))
     }
     useEffect(() => {
         let result = products
-        result = priceFilter(result,filterPrice)
-        result = categoryFilter(result,filterCategory)
+        result = priceFilter(result, filterPrice)
+        result = categoryFilter(result, filterCategory)
         setFilterArray(result)
-    }, [filterCategory,filterPrice])
+    }, [filterCategory, filterPrice])
 
     useEffect(() => {
-            dispatch(listProducts())
+        dispatch(listProducts())
     }, [dispatch])
 
     useEffect(() => {
@@ -71,6 +67,9 @@ function Products() {
 
     return (
         <>
+            <div className='flex-column my-4' style={{ height: '150px' }}>
+                <img className='w-100 h-100' src='https://cdn0.fahasa.com/media/wysiwyg/NGOAI-VAN-2018/AUG-2018/Bestsellers1920x350-111.jpg' alt=''></img>
+            </div>
             <div className='mt-5 mb-3'>
                 <form className='text-right'
                     onSubmit={(e) => handleFilter(e, 'name', e.target.elements.search__input.value)}>
@@ -106,27 +105,27 @@ function Products() {
                 </select>
             </div>
 
-            { loading && <Spinners> </Spinners>}
-            {
-                filterArray.length > 0 &&
-                (<Row>
-                    <Col xs={12}>
-                        <Row>
-                            {loading ? <Spinners></Spinners>
-                                : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
+            {loading ? <Spinners> </Spinners> : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
+                filterArray.length > 0 ?
+                    (<Row>
+                        <Col xs={12}>
+                            <Row>
+                                {
                                     filterArray.map((product) => {
-                                        return (
+                                        return (product.stock > 0 &&
                                             <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
                                                 <ItemCard item={product} key={product._id} >
                                                 </ItemCard>
                                             </Col>
                                         )
                                     })
-                            }
-                        </Row>
-                    </Col>
-                </Row>)
-
+                                }
+                            </Row>
+                        </Col>
+                    </Row>) :
+                    (<div style={{ textAlign: 'center', minHeight: '400px', padding: '20% 0px', backgroundColor: '#caddee8c' }}>
+                        <h3>không tìm thấy </h3>
+                    </div>)
                 // <>
                 //     {
                 //         loading ?

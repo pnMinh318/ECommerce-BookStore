@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 function Navbar() {
     return (
         <div className='app-main-navbar'>
-            <div className='navbar' style={{ display: 'block' }}>
+            <div className='navbarx' style={{ display: 'block' }}>
                 <p style={{ textAlign: 'center', margin: 0, padding: '10px 0px', backgroundColor: 'orange' }}> <b>DANH SÁCH THỂ LOẠI</b> </p>
                 <ul style={{ height: 'auto' }}  >
                     <li>
@@ -25,6 +25,10 @@ function Navbar() {
                     </li>
                     <li  >
                         <Link to='/'>Khoa học viễn tưởng
+                            <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
+                    </li>
+                    <li  >
+                        <Link to='/'>Tất cả
                             <span><IoIosArrowForward style={{ float: 'right', marginTop: '2px' }}></IoIosArrowForward></span></Link>
                     </li>
                 </ul>

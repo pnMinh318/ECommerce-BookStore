@@ -46,6 +46,11 @@ input{
   border: none;
   outline: none;
 }
+.textarea{
+  min-height: 165px;
+  max-height: 165px;
+  outline: none;
+}
 .app-home-container{
   margin: 0px 9%;
 }
@@ -68,12 +73,12 @@ input{
   width: 100%;
 }
 
-.navbar{
+.navbarx{
   height: 100%;
   align-items: flex-start;
   background-color: #aecbf6;
 }
-.navbar ul{
+.navbarx ul{
   height: auto;
   width: 100%;
   margin-block-start: 0cm;
@@ -83,12 +88,12 @@ input{
   flex-direction: column;
   justify-content: space-evenly;
 }
-.navbar ul li{
+.navbarx ul li{
   margin: 0;
   padding: 0;
   justify-self: stretch;
 }
-.navbar li a{
+.navbarx li a{
   padding: 8px 0px;
   background-color: var(--nav);
   color: black;
@@ -96,7 +101,7 @@ input{
   padding-left: 15px;
   height: 55.2px;
  }
-.navbar li a:hover{
+.navbarx li a:hover{
   background-color: #FAFAFA;
   color: black;
 }
@@ -170,9 +175,17 @@ input{
   transition-duration: .3s;
   /* transform: translateY(10px); */
 }
+.card-discount{
+  background-color: red;
+  color: white;
+  width: 50px;
+  height: 20px;
+  border-radius: 5px;
+  position: absolute;
+}
 .card-product-price {
   color: red;
-  font-size: 1.8rem ;
+  font-size: 1.5rem ;
   
 }
 .card-product-img {
@@ -247,4 +260,29 @@ form button.search__input{
 form button.search__input:hover{
   border: 2px solid rgb(196, 194, 194);
   transition-duration: .1s;
+}
+/*carousel*/
+.carousel-inner{
+  z-index: 2;
+}
+.carousel-item-next,.carousel-item-prev,.carousel-item-active{
+  display: flex;
+  color: white;
+}
+.carousel-control-next,.carousel-control-prev,.carousel-control-active{
+  z-index: 2 !important;
+}
+.carousel-caption{
+  top:0;
+  left: 0;
+}
+.carousel-caption h2{
+  color: #fff;
+}
+.carousel img{
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+  /* width: 50%;
+  border-radius: 50%; */
 }

@@ -3,12 +3,12 @@ import { FaFacebookSquare, FaInstagram, FaTwitch } from 'react-icons/fa'
 import './footer.css'
 function Footer() {
     return (
-        <div className='footer-wrapper' style={{ backgroundColor: '#2d69c4', height: 300, display: 'block', color: 'white' }}>
+        <div className='footer-wrapper'>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '20px 20px', justifyContent: 'space-around' }}>
             <div className='footer-left'>
               <b>CONTACT US</b>
               <p>-Địa chỉ: Số 1 đường Võ Văn Ngân, thành phố Thủ Đức</p>
-              <p>-Email:    </p>
+              <p>-Email: 18110318@student.hcmute.edu.vn    </p>
               <p>-Hotline: 00000000 </p>
               <p>
                 <FaFacebookSquare size='40px'></FaFacebookSquare>

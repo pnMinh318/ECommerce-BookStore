@@ -116,7 +116,7 @@ function CartItems() {
                                     </div>
                                     <div className='pl-3' style={{ width: '45%' }}>
                                         <Link to={`/products/${product._id}`}>
-                                            <div className=' text-danger' style={{minHeight:'30px'}}> {product.name.toUpperCase()}</div>
+                                            <div className=' text-danger' style={{ minHeight: '30px' }}> {product.name.toUpperCase()}</div>
                                         </Link>
                                         <p className='mt-4'>Đơn giá: {product.price}</p>
                                     </div>
@@ -149,7 +149,7 @@ function CartItems() {
                     <Col xs={4} as='div' className='ml-auto' style={{ borderLeft: '0.5px solid rgba(0, 0, 0, 0.1)' }}>
                         <div>
                             <div className=''>
-                                <div className='mt-4' style={{ borderTop: '2px solid #6e52e0',fontSize:'1.2rem' }} >
+                                <div className='mt-4' style={{ borderTop: '2px solid #6e52e0', fontSize: '1.2rem' }} >
                                     <div className='pt-4 text-uppercase'>
                                         <div className='mr-3'>Tổng số sản phẩm:
                                             <span className='float-right'>
@@ -163,6 +163,7 @@ function CartItems() {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className='mt-3' >
                                     <button className='w-100 p-2 mb-4' onClick={() => handleCheckout()}
                                         style={{ border: '1px solid #000', backgroundColor: '#000', color: '#fff' }} >TIẾN HÀNH THANH TOÁN</button>

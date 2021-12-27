@@ -15,7 +15,6 @@
 /* Style the header with a grey background and some padding */
 .header {
     /* overflow: hidden; */
-    color: white;
     padding: 20px 10px;
     height: 100px;
     padding: 0px 150px;
@@ -38,20 +37,24 @@
     /* display: inline-block; */
     position: relative;
     padding: 0rem .25rem;
+    margin-left: 3rem;
   }
   
   /* Change the background color on mouse-over */
-  .header__nav:hover {
-    color: rgb(109, 107, 106);
-  border-bottom: 5px solid rgb(124, 121, 121);
+.header__nav:hover {
+  color: rgb(109, 107, 106);
+  /* border-bottom: 5px solid rgb(124, 121, 121);
+  background-color: rgb(217, 222, 226); */
+  opacity: 0.6;
   transition: 0.3s ease-in;
   opacity: 1;
 }
-
+.header_nav a:hover{
+  opacity: 0.8;
+}
 /* Style the active/current link*/
 .header__nav:active {
   transition: 0.1s ease-in-out;
-  background-color: rgb(194, 202, 209);
   color: white;
 }
   
@@ -110,7 +113,7 @@
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out,transform 150ms ease-in-out;
     pointer-events: none;
-    z-index: 1; /* do uu tien */
+    z-index: 5; /* do uu tien */
 }
 
   .dropdown__wrapper>.link:focus + .dropdown__menu{

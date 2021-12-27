@@ -49,8 +49,19 @@ function ProductDetails({ match }) {
                                                 <br></br>
                                                 {`Nhà xuất bản : ${product.details['NXB']}`}
                                             </div>
-                                            <div className='py-3 pt-3' style={{ fontSize: '40px', color: 'red' }}>
-                                                {product.price}đ
+                                            <div className='py-3 pt-3' >
+                                                <span style={{ fontSize: '40px', color: 'red' }}> {product.price}đ</span>
+                                                {
+                                                    product.discount > 0 && (
+                                                        <>
+                                                            <span style={{ background: 'orange', color: 'white', borderRadius: '5px', border: '2px solid white' }}
+                                                                className='ml-3 font1p2 px-2'
+                                                            >{product.discount}%</span>
+                                                            <span  className='ml-3'><del>{ product.price + product.price*product.discount/100}đ</del></span>
+                                                        </>
+                                                    )
+                                                }
+
                                             </div>
                                             <p>Chính sách đổi trả: Đổi trả trong vòng 30 ngày</p>
                                             <label> Tình trạng :</label>
@@ -85,7 +96,8 @@ function ProductDetails({ match }) {
                                                                     <th className='wtf'>{key}</th>
                                                                     <td className='wtf'>{product.details[key]}</td>
                                                                 </tr>
-                                                            )})
+                                                            )
+                                                        })
                                                     }
                                                 </tbody>
                                             </table>

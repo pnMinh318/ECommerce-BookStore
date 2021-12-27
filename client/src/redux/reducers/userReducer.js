@@ -22,6 +22,17 @@ const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS'
 const USER_UPDATE_FAIL = 'USER_UPDATE_FAIL'
 const USER_UPDATE_RESET = 'USER_UPDATE_RESET'
 
+const USER_PROFILE_REQUEST = 'USER_PROFILE_REQUEST'
+const USER_PROFILE_SUCCESS = 'USER_PROFILE_SUCCESS'
+const USER_PROFILE_FAIL = 'USER_PROFILE_FAIL'
+const USER_PROFILE_RESET = 'USER_PROFILE_RESET'
+
+
+const USER_UPDATE_PROFILE_REQUEST = 'USER_UPDATE_PROFILE_REQUEST'
+const USER_UPDATE_PROFILE_SUCCESS = 'USER_UPDATE_PROFILE_SUCCESS'
+const USER_UPDATE_PROFILE_FAIL = 'USER_UPDATE_PROFILE_FAIL'
+const USER_UPDATE_PROFILE_RESET = 'USER_UPDATE_PROFILE_RESET'
+
 export const userLoginReducer = (state = {}, action) => {
     switch (action.type) {
         case USER_LOGIN_REQUEST:
@@ -116,8 +127,53 @@ export const usersUpdateReducer = (state = { user: {} }, action) => {
             }
         case USER_UPDATE_RESET:
             return {
-                user:{}
+                user: {}
             }
+        default:
+            return state
+    }
+}
+export const userUpdateProfileReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_UPDATE_PROFILE_REQUEST:
+            return {
+                loading: true
+            }
+        case USER_UPDATE_PROFILE_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+        case USER_UPDATE_PROFILE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case USER_UPDATE_PROFILE_RESET:
+            return {}
+        default:
+            return state
+    }
+}
+export const userProfileReducer = (state = { user: {} }, action) => {
+    switch (action.type) {
+        case USER_PROFILE_REQUEST:
+            return {
+                loading: true
+            }
+        case USER_PROFILE_SUCCESS:
+            return {
+                loading: false,
+                user: action.payload,
+                success: true,
+            }
+        case USER_PROFILE_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case USER_PROFILE_RESET:
+            return {}
         default:
             return state
     }

@@ -26,6 +26,13 @@ const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST'
 const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS'
 const USER_UPDATE_FAIL = 'USER_UPDATE_FAIL'
 
+const USER_PROFILE_REQUEST = 'USER_PROFILE_REQUEST'
+const USER_PROFILE_SUCCESS = 'USER_PROFILE_SUCCESS'
+const USER_PROFILE_FAIL = 'USER_PROFILE_FAIL'
+
+const USER_UPDATE_PROFILE_REQUEST = 'USER_UPDATE_PROFILE_REQUEST'
+const USER_UPDATE_PROFILE_SUCCESS = 'USER_UPDATE_PROFILE_SUCCESS'
+const USER_UPDATE_PROFILE_FAIL = 'USER_UPDATE_PROFILE_FAIL'
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -106,6 +113,57 @@ export const getUserDetailsByID = (id) => async (dispatch, getState) => {
         dispatch({
             type: USER_DETAILS_FAIL,
             payload: error //chưa xong
+        })
+    }
+}
+export const updateUserProfile = (userUpdate) => async (dispatch, getState) => {
+    try {
+        const { user } = getState().userLogin
+        dispatch({
+            type: USER_UPDATE_PROFILE_REQUEST
+        })
+        const config = {
+            'Content-Type': 'application/json',
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        console.log(user.token)
+        const { data } = await axios.put(`/api/users/profile`, userUpdate, config)
+        if (data) {
+            dispatch({ type: USER_UPDATE_PROFILE_SUCCESS })
+            dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+        } else {
+            dispatch({
+                type: USER_UPDATE_PROFILE_FAIL,
+                payload: { message: '' }
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: USER_UPDATE_PROFILE_FAIL,
+            payload: error
+        })
+    }
+}
+export const getUserProfile = () => async (dispatch, getState) => {
+    try {
+        const { user } = getState().userLogin
+        dispatch({
+            type: USER_PROFILE_REQUEST
+        })
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const { data } = await axios.get(`/api/users/profile`, config)
+        dispatch({ type: USER_PROFILE_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({
+            type: USER_PROFILE_FAIL,
+            payload: error
         })
     }
 }
