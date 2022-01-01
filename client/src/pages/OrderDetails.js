@@ -34,11 +34,13 @@ function OrderDetails({ match }) {
             }
             document.body.appendChild(script)
         }
-        if (!order || successPay || errorPay || successDeliver || errorDeliver) {
+        if (order?._id !== orderId) {
+            dispatch(orderDetails(orderId))
+        }
+        else if (successPay || errorPay || successDeliver || errorDeliver) {
             dispatch({ type: 'ORDER_DELIVER_RESET' })
             dispatch({ type: 'ORDER_PAY_RESET' })
             dispatch(orderDetails(orderId))
-
         } else if (!order.isPaid) {
             if (!window.paypal) {
                 addPaypalScript()
@@ -46,7 +48,7 @@ function OrderDetails({ match }) {
                 setSdkReady(true)
             }
         }
-    }, [dispatch,order, orderId, successDeliver, errorDeliver, successPay, errorPay])
+    }, [dispatch, order, orderId, successDeliver, errorDeliver, successPay, errorPay])
     const markAsDeliveredHandler = () => {
         dispatch(deliverOrder(orderId))
     }

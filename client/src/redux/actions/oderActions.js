@@ -12,6 +12,10 @@ const ORDER_DETAILS_REQUEST = 'ORDER_DETAILS_REQUEST'
 const ORDER_DETAILS_SUCCESS = 'ORDER_DETAILS_SUCCESS'
 const ORDER_DETAILS_FAIL = 'ORDER_DETAILS_FAIL'
 
+const ORDER_DELETE_REQUEST = 'ORDER_DELETE_REQUEST'
+const ORDER_DELETE_SUCCESS = 'ORDER_DELETE_SUCCESS'
+const ORDER_DELETE_FAIL = 'ORDER_DELETE_FAIL'
+
 const ORDER_CURRENT_USER_REQUEST = 'ORDER_CURRENT_USER_REQUEST'
 const ORDER_CURRENT_USER_SUCCESS = 'ORDER_CURRENT_USER_SUCCESS'
 const ORDER_CURRENT_USER_FAIL = 'ORDER_CURRENT_USER_FAIL'
@@ -79,6 +83,31 @@ export const orderDetails = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
+            payload: error
+        })
+    }
+}
+export const orderDelete = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ORDER_DELETE_REQUEST,
+        })
+        const { user } = getState().userLogin
+        console.log('token', user.token)
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const { data } = await axios.delete(`/api/orders/${id}`, config)
+        if (data) {
+            dispatch({
+                type: ORDER_DELETE_SUCCESS,
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: ORDER_DELETE_FAIL,
             payload: error
         })
     }

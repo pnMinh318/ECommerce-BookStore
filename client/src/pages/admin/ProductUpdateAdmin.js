@@ -114,12 +114,23 @@ function ProductUpdateAdmin({ match }) {
                                     </div>
                                     <Form.Group controlId='category'>
                                         <Form.Label>Danh mục</Form.Label>
-                                        <Form.Control
+                                        {/* <Form.Control
                                             type='text'
                                             required
                                             value={category || ''}
                                             onChange={(e) => setCategory(e.target.value)}>
-                                        </Form.Control>
+                                        </Form.Control> */}
+                                        <select className=' w-100 px-3 py-2'
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}>
+                                            <option value={'van-hoc'}>Văn học</option>
+                                            <option value={'tam-ly'}>Tâm lý-Kỹ năng sống</option>
+                                            <option value={'kinh-te'}>Kinh tế</option>
+                                            <option value={'tieu-thuyet'}>Tiểu thuyết</option>
+                                            <option value={'sach-giao-khoa'}>Giáo khoa-Tham khảo</option>
+                                            <option value={'ngoai-ngu'}>Sách ngoại ngữ</option>
+                                            <option value={'truyen-tranh'}>Truyện tranh-Thiếu nhi</option>
+                                        </select>
                                     </Form.Group>
                                     <Form.Group controlId='img'>
                                         <Form.Label>Hình ảnh</Form.Label>

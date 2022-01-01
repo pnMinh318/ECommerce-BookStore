@@ -25,10 +25,10 @@ const PRODUCT_NEWEST_REQUEST = 'PRODUCT_NEWEST_REQUEST'
 const PRODUCT_NEWEST_SUCCESS = 'PRODUCT_NEWEST_SUCCESS'
 const PRODUCT_NEWEST_FAIL = 'PRODUCT_NEWEST_FAIL'
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (seacrh = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
-        const { data } = await axios.get(`/api/products`)  //nên destructure để lấy mỗi cái data
+        const { data } = await axios.get(`/api/products?q=${seacrh}`)  //nên destructure để lấy mỗi cái data
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -38,7 +38,7 @@ export const listProducts = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_LIST_FAIL,
-            payload: error 
+            payload: error
         })
     }
 }
@@ -55,7 +55,7 @@ export const listNewestProducts = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_NEWEST_FAIL,
-            payload: error 
+            payload: error
         })
     }
 }
@@ -63,7 +63,7 @@ export const productDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/api/products/${id}`)   
+        const { data } = await axios.get(`/api/products/${id}`)
 
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
@@ -73,7 +73,7 @@ export const productDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
-            payload: error 
+            payload: error
         })
     }
 }
@@ -116,7 +116,7 @@ export const productCreate = (product) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`/api/products/`, product, config)  
+        const { data } = await axios.post(`/api/products/`, product, config)
 
         dispatch({
             type: PRODUCT_CREATE_SUCCESS,
@@ -142,7 +142,7 @@ export const productUpdate = (product) => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.put(`/api/products/${product._id}`, product, config) 
+        const { data } = await axios.put(`/api/products/${product._id}`, product, config)
 
         dispatch({
             type: PRODUCT_UPDATE_SUCCESS,

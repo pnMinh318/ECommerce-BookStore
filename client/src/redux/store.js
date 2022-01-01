@@ -3,9 +3,9 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 //reducers
 import cartReducer from './reducers/cartReducer'
-import { productListReducer, productDetailsReducer,productDeleteReducer,productCreateReducer, productUpdateReducer, productNewestReducer } from './reducers/productReducers'
-import { userLoginReducer,usersListReducer,usersDeleteReducer,userDetailsReducer,usersUpdateReducer,userUpdateProfileReducer, userProfileReducer } from './reducers/userReducer'
-import { ordersListReducer,orderCreateReducer,orderDetailsReducer,ordersMyListReducer,orderDeliverReducer, orderPayReducer } from './reducers/orderReducers'
+import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer, productNewestReducer } from './reducers/productReducers'
+import { userLoginReducer, usersListReducer, usersDeleteReducer, userDetailsReducer, usersUpdateReducer, userUpdateProfileReducer, userProfileReducer } from './reducers/userReducer'
+import { ordersListReducer, orderCreateReducer, orderDetailsReducer, ordersMyListReducer, orderDeliverReducer, orderPayReducer, orderDeleteReducer } from './reducers/orderReducers'
 
 // const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 // const cartTotalPriceFromStorage = localStorage.getItem('cartTotalPrice') ? JSON.parse(localStorage.getItem('cartTotalPrice')) : 0
@@ -16,7 +16,7 @@ const initialState = {
         products: cartFromStorage.products, // thêm local storage ok
         totalPrice: cartFromStorage.totalPrice
     },
-    userLogin: { user : userFromStorage }
+    userLogin: { user: userFromStorage }
 }
 
 const middleware = [thunk]
@@ -26,6 +26,7 @@ const reducers = combineReducers({
     orderDetails: orderDetailsReducer,
     orderMyLists: ordersMyListReducer,
     orderList: ordersListReducer,
+    orderDelete: orderDeleteReducer,
     orderPay: orderPayReducer,
     orderDeliver: orderDeliverReducer,
     cart: cartReducer,

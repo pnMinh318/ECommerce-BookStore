@@ -31,13 +31,15 @@ function App() {
       <Router>
         <Switch >
           <Route component={HomeAdmin} path='/admin/'></Route>
+          <Route component={LoginForm} path='/login' exact ></Route>
+
           <> {/* thêm bracket để switch không warning*/}
             <div id='App' style={{ letterSpacing: '0px' }}>
               <Header></Header>
               <Container >
-                <Route component={LoginForm} path='/login' exact ></Route>
-                <Route component={Home} path='/' exact></Route> {/* trang home không sài bootstrap nên ko bọc container được*/}
+                <Route component={Home} path='/' exact></Route>
                 <Route component={Products} path='/products' exact></Route>
+                <Route component={Products} path='/search' exact></Route>
                 <Route component={ProductDetails} path='/products/:id' ></Route>
                 <Route component={CartItems} path='/cart' ></Route>
                 <Route component={CheckOut} path='/checkout' ></Route>

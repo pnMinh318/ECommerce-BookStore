@@ -1,5 +1,6 @@
 import { OrderModel } from '../models/OrderModel.js'
-import {ProductModel} from '../models/ProductModel.js'
+import { ProductModel } from '../models/ProductModel.js'
+import { sendEmail } from '../utils/sendEmail.js'
 export const getOrders = async (req, res) => {
     try {
         const data = await OrderModel.find()
@@ -64,7 +65,13 @@ export const createOrder = async (req, res) => {
         })
         console.log('neworder', newOrder)
         const createdOrder = await newOrder.save()
-        res.status(201).json(createdOrder)
+        if(createOrder){
+            res.status(201).json(createdOrder)
+            sendEmail(email)
+        }else{
+            res.status(404)
+            throw new Error('Order Not Created')
+        }
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
@@ -75,11 +82,11 @@ export const updateOrderToDelivered = async (req, res) => {
     try {
         const data = await OrderModel.findById(req.params.id)
         data.orderItems.forEach(async item => {
-            const x= await ProductModel.findById(item._id)
-            console.log('item stock trước khi save',x.name,':',x.stock)
+            const x = await ProductModel.findById(item._id)
+            console.log('item stock trước khi save', x.name, ':', x.stock)
             x.stock = x.stock - item.cartQuantity
             const update = await x.save()
-            console.log('item stock sau khi save',update.name,':',update.stock)
+            console.log('item stock sau khi save', update.name, ':', update.stock)
         });
         if (data) {
             console.log(data.paymentMethod)
@@ -92,7 +99,7 @@ export const updateOrderToDelivered = async (req, res) => {
                 data.isPaid = true
                 data.paidDate = Date.now()
             }
-            const updatedOrder= await data.save()
+            const updatedOrder = await data.save()
             res.status(201).json(updatedOrder)
         }
         else {
@@ -115,12 +122,26 @@ export const updateOrderToPaidPaypal = async (req, res) => {
                 email_address: req.body.payer.email_address,
                 update_time: req.body.update_time
             }
-            const updatedOrder= await data.save()
+            const updatedOrder = await data.save()
             res.json(updatedOrder)
         }
         else {
             res.status(404)
             throw new Error('Order not found')
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+export const deleteOrder = async (req, res) => {
+    try {
+        const data = await OrderModel.findById(req.params.id)
+        if (data) {
+            await data.remove()
+            res.json({message:'Orders remove successfully'})
+        }
+        else {
+            res.status(404).json({ message: 'Order not found' })
         }
     } catch (error) {
         res.status(500).json(error)

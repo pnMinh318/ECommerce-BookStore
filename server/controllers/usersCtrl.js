@@ -28,17 +28,16 @@ export const authUser = asyncHandler(async (req, res) => {
 //@ POST api/users
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body
-    console.log(name, email, password)
+   
     const userExists = await UserModel.findOne({ email })
-    console.log(userExists)
+    
     if (userExists) {
         res.status(400).json({ message: 'User already existed' })
         throw new Error('User already existed')
     }
-    //const user = await UserModel.create({ name: name, email: email, password: password, isAdmin: false }) // chưa xong
     const user = new UserModel({ name, email, password })
     await user.save()
-    console.log(user)
+    
     if (user) {
         res.status(201).json({ //201:something created
             _id: user._id,

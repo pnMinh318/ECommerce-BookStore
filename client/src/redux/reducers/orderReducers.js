@@ -8,6 +8,11 @@ const ORDER_DETAILS_SUCCESS = 'ORDER_DETAILS_SUCCESS'
 const ORDER_DETAILS_FAIL = 'ORDER_DETAILS_FAIL'
 const ORDER_DETAILS_RESET = 'ORDER_DETAILS_RESET'
 
+const ORDER_DELETE_REQUEST = 'ORDER_DELETE_REQUEST'
+const ORDER_DELETE_SUCCESS = 'ORDER_DELETE_SUCCESS'
+const ORDER_DELETE_FAIL = 'ORDER_DELETE_FAIL'
+const ORDER_DELETE_RESET = 'ORDER_DELETE_RESET'
+
 const ORDER_CURRENT_USER_REQUEST = 'ORDER_CURRENT_USER_REQUEST'
 const ORDER_CURRENT_USER_SUCCESS = 'ORDER_CURRENT_USER_SUCCESS'
 const ORDER_CURRENT_USER_FAIL = 'ORDER_CURRENT_USER_FAIL'
@@ -67,6 +72,26 @@ export const orderDetailsReducer = (state = { loading: true }, action) => {
                 error: action.payload,
             }
         case ORDER_DETAILS_RESET:
+            return {}
+        default:
+            return state
+    }
+}
+export const orderDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ORDER_DELETE_REQUEST:
+            return { loading: true }
+        case ORDER_DELETE_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case ORDER_DELETE_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
+            }
+        case ORDER_DELETE_RESET:
             return {}
         default:
             return state

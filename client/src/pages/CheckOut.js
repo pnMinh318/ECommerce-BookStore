@@ -27,40 +27,48 @@ function CheckOut({ history }) {
     const [region, setRegion] = useState('')
     const [paymentMethod, setPaymentMethod] = useState('COD')
     const shippingPrice = 25000
-    const [availableToCreateOrder, setAvailableToCreateOrder] = useState(true)
     //function
-    const validateEmptyString = (str) => {
+    const isEmptyString = (str) => {
         console.log(str)
+        return str.trim().length === 0
+    }
+    const validatePhoneNumber = (phone) => {
+        //eslint-disable-next-line
+        const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,5}$/im;
+        return re.test(phone);
     }
     useEffect(() => {
         if (success) {
             history.push(`/order/${createdOrder._id}`)
-            dispatch({type:'ORDER_CREATE_RESET'})
+            dispatch({ type: 'ORDER_CREATE_RESET' })
         }
-    }, [success, history, createdOrder,dispatch])
+    }, [success, history, createdOrder, dispatch])
     const handlePlaceOrder = () => {
-        const order = {
-            user: user._id,
-            orderItems: products,
-            orderPrice: totalPrice,
-            name: name,
-            email: email,
-            phone: phone,
-            paymentMethod: paymentMethod,
-            shippingPrice: shippingPrice,
-            shippingAddress: address,
-            region: region
+        if (isEmptyString(name) || isEmptyString(address) || isEmptyString(region)) {
+            alert('Xin hãy điền đầy đủ thông tin')
+        } else if (!validatePhoneNumber(phone)) {
+            alert('SĐT gồm 10 hoặc 11 chữ số')
+        } else {
+            const order = {
+                user: user._id,
+                orderItems: products,
+                orderPrice: totalPrice,
+                name: name,
+                email: email,
+                phone: phone,
+                paymentMethod: paymentMethod,
+                shippingPrice: shippingPrice,
+                shippingAddress: address,
+                region: region
+            }
+            dispatch(createOrder(order))
         }
-        console.log(order)
-        dispatch(createOrder(order))
     }
-
     return (
         <>
             {
                 loading ? <Spinner></Spinner> :
                     <>
-
                         <Link to='/cart' className='text-decoration-none'>
                             <h6 className='goback mb-3'>
                                 <BsArrowReturnLeft style={{ cursor: 'pointer' }}></BsArrowReturnLeft>Quay lại giỏ hàng
@@ -76,7 +84,7 @@ function CheckOut({ history }) {
                                             <input className='userInfo__input'
                                                 value={name}
                                                 onChange={(e) => setName(e.target.value)}
-                                                onBlur={(e) => validateEmptyString(e.target.value)}>
+                                                onBlur={(e) => isEmptyString(e.target.value)}>
                                             </input>
                                         </div>
                                         <div className='userInfo'>
@@ -92,7 +100,7 @@ function CheckOut({ history }) {
                                             <input className='userInfo__input'
                                                 value={phone}
                                                 onChange={(e) => setPhone(e.target.value)}
-                                                onBlur={(e) => validateEmptyString(e.target.value)}>
+                                                onBlur={(e) => isEmptyString(e.target.value)}>
                                             </input>
                                         </div>
                                         <div className='userInfo pt-3'>
@@ -108,7 +116,7 @@ function CheckOut({ history }) {
                                             <input className='userInfo__input'
                                                 value={address}
                                                 onChange={(e) => setAddress(e.target.value)}
-                                                onBlur={(e) => validateEmptyString(e.target.value)}>
+                                                onBlur={(e) => isEmptyString(e.target.value)}>
                                             </input>
                                         </div>
                                         <div className='userInfo' style={{ backgroundColor: '#0000ff1f' }}>
@@ -129,7 +137,6 @@ function CheckOut({ history }) {
                                         </div>
                                     </form>
                                 </div>
-
                             </Col>
                             <Col xs={6} md={6}  >
                                 <div style={{ minHeight: '350px' }}>
@@ -150,9 +157,6 @@ function CheckOut({ history }) {
                                                         <span className='font1p2' style={{ color: 'red' }}>{product.price * product.cartQuantity}đ</span>
 
                                                     </div>
-                                                    <div style={{ textAlign: 'center' }}>
-
-                                                    </div>
                                                 </div>
                                             )
                                         })
@@ -171,9 +175,8 @@ function CheckOut({ history }) {
                                 <button
                                     className='createOrder ml-auto mr-3'
                                     onClick={() => handlePlaceOrder()}
-                                    disabled={!availableToCreateOrder}
+                                    // disabled={!availableToCreateOrder}
                                 >Xác nhận đơn hàng </button>
-                                {success && <p className='text-center' style={{ color: 'red' }} >Đặt hàng thành công</p>}
                             </div>
                         </Row>
 

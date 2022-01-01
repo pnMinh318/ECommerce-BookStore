@@ -1,16 +1,21 @@
 import { ProductModel } from "../models/ProductModel.js";
 export const getBooks = async (req, res) => {
     try {
-        const category = req.query.category
-
-        let data
-        if (category) {
-            category.replace(' ','-')
-            data = await ProductModel.find({ category: category })
-            console.log(category)
-        } else {
-            data = await ProductModel.find({})
-        }
+        const search = req.query.q ? {
+            name: {
+                $regex: req.query.q ,
+                $options: 'i'
+            }
+        } : { }
+        const data = await ProductModel.find({...search})
+        // let data
+        // if (category) {
+        //     category.replace(' ','-')
+        //     data = await ProductModel.find({ category: category })
+        //     console.log(category)
+        // } else {
+        //     data = await ProductModel.find({})
+        // }
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json({ error: error })

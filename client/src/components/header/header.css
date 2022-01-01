@@ -9,7 +9,7 @@
     text-align: center;
 }
 .header__img{
-    height: 200px;
+    height: 250px;
     background-image: url('https://thumbs.dreamstime.com/b/header-laptop-scattered-stationery-yellow-background-online-school-distance-education-concept-211955492.jpg');
 }
 /* Style the header with a grey background and some padding */
@@ -105,7 +105,7 @@
     width: 160px;
     position: absolute;
     top: calc(100%);
-    background-color: bisque;
+    background-color: rgb(224, 223, 220);
     /* padding: .75rem; */
     border-radius: .25rem;
     box-shadow: 0 5px 15px 0 rgba(109, 107, 106,.1);
@@ -135,7 +135,8 @@
     padding: .5rem 0rem;
   }
   .dropdown__menu > .dropdown__content:hover{
-    background-color: rgb(95, 89, 89);
-    /* color: white; */
+    background-color: rgb(197, 195, 195);
+    color: black;
+    border-radius: 3px;
     pointer-events: auto;
   }
