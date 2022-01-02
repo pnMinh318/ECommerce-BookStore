@@ -5,6 +5,10 @@ const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
 const USER_LOGOUT = 'USER_LOGOUT'
 
+const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST'
+const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
+const USER_REGISTER_FAIL = 'USER_REGISTER_FAIL'
+
 const USER_DETAILS_REQUEST = 'USER_DETAILS_REQUEST'
 const USER_DETAILS_SUCCESS = 'USER_DETAILS_SUCCESS'
 const USER_DETAILS_FAIL = 'USER_DETAILS_FAIL'
@@ -54,6 +58,28 @@ export const login = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
+            payload: error //chưa xong
+        })
+    }
+}
+
+export const register = (email,password,name) => async (dispatch) => {
+    try {
+        dispatch({
+            type: USER_REGISTER_REQUEST
+        })
+        const config = {
+            headers: { 'Content-Type': 'application/json' }
+        }
+        const { data } = await axios.post('/api/users', { email, password,name }, config)
+
+        dispatch({
+            type: USER_REGISTER_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: USER_REGISTER_FAIL,
             payload: error //chưa xong
         })
     }

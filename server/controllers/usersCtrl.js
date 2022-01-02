@@ -1,7 +1,6 @@
 import { UserModel } from "../models/UserModel.js";
 import asyncHandler from 'express-async-handler'
 import generateToken from "../utils/generateToken.js";
-import { ObjectId } from "mongodb";
 
 //@ POST api/users/login
 export const authUser = asyncHandler(async (req, res) => {
@@ -32,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     const userExists = await UserModel.findOne({ email })
     
     if (userExists) {
-        res.status(400).json({ message: 'User already existed' })
+        res.status(400).json({ error: 'Email này đã được sử dụng' })
         throw new Error('User already existed')
     }
     const user = new UserModel({ name, email, password })

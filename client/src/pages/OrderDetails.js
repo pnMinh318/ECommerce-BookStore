@@ -19,7 +19,7 @@ function OrderDetails({ match }) {
     const { loading: loadingDeliver, success: successDeliver, error: errorDeliver } = useSelector(state => state.orderDeliver)
     const { loading: loadingPay, success: successPay, error: errorPay } = useSelector(state => state.orderPay)
 
-
+    const paypalPrice= ((order?.orderPrice + order?.shippingPrice)/23000).toFixed(2)
 
     useEffect(() => {
         const addPaypalScript = async () => {
@@ -149,7 +149,7 @@ function OrderDetails({ match }) {
                                             {
                                                 !sdkReady ? <Spinners></Spinners> : (
                                                     <PayPalButton
-                                                        amount={order.orderPrice + order.shippingPrice}
+                                                        amount={paypalPrice}
                                                         onSuccess={successPayHandler}>
                                                     </PayPalButton>
                                                 )

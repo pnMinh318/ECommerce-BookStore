@@ -95,8 +95,10 @@ function CartItems() {
                 </div>) :
                 //Có sản phẩm
                 <Row className='my-0' as='div'>
-                    <div className='mb-1' style={{ width: '100%', borderBottom: '0.5px solid  rgba(0, 0, 0, 0.1)' }}>
-                        <h2>GIỎ HÀNG</h2>
+                    <div className='mb-1 w-100' >
+                        <p className='text-center text-uppercase' 
+                        style={{ fontSize: '30px', borderBottom: '0.5px solid  rgba(0, 0, 0, 0.1)' }}
+                        >giỏ hàng của bạn</p>
                     </div>
                     <Col xs={8} className='mt-3' style={{ minHeight: '400px' }}>
                         {products.map(product => {

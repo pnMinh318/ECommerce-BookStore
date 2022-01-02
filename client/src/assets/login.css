@@ -83,3 +83,24 @@ form .text_field{
 .center button:hover{
     background-color: #888888;
 }
+
+input.login__input{
+    border-radius: 5px;
+    border: 2px solid rgb(197, 197, 197);
+}
+input.login__input:focus{
+    border: 2px solid rgb(100, 100, 100);
+    background-color: rgb(249, 249, 255);
+    transition: .1s ease-in;
+}
+div>button.login__button    {
+    background-color: whitesmoke;
+    color: black;
+    
+    
+}
+div>button.login__button:hover{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    transition: .1s ease-in;
+}

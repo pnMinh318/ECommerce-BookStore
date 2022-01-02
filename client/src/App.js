@@ -31,7 +31,6 @@ function App() {
       <Router>
         <Switch >
           <Route component={HomeAdmin} path='/admin/'></Route>
-          <Route component={LoginForm} path='/login' exact ></Route>
 
           <> {/* thêm bracket để switch không warning*/}
             <div id='App' style={{ letterSpacing: '0px' }}>
@@ -43,6 +42,7 @@ function App() {
                 <Route component={ProductDetails} path='/products/:id' ></Route>
                 <Route component={CartItems} path='/cart' ></Route>
                 <Route component={CheckOut} path='/checkout' ></Route>
+                <Route component={LoginForm} path='/login' exact ></Route>
                 <Route component={OrderDetails} path='/order/:id'></Route>
                 <Route component={UserProfile} path='/profile'></Route>
               </Container>

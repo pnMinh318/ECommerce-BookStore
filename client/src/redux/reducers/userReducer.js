@@ -2,6 +2,12 @@ const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
 const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
 const USER_LOGOUT = 'USER_LOGOUT'
+
+const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST'
+const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
+const USER_REGISTER_FAIL = 'USER_REGISTER_FAIL'
+const USER_REGISTER_RESET = 'USER_REGISTER_RESET'
+
 //admin
 const USER_LIST_REQUEST = 'USER_LIST_REQUEST'
 const USER_LIST_SUCCESS = 'USER_LIST_SUCCESS'
@@ -56,7 +62,29 @@ export const userLoginReducer = (state = {}, action) => {
 
     }
 }
+export const userRegisterReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_REGISTER_REQUEST:
+            return {
+                loading: true
+            }
+        case USER_REGISTER_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case USER_REGISTER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case USER_REGISTER_RESET:
+            return {}
+        default:
+            return state
 
+    }
+}
 export const usersListReducer = (state = { users: [] }, action) => {
     switch (action.type) {
         case USER_LIST_REQUEST:

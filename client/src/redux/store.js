@@ -3,9 +3,18 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 //reducers
 import cartReducer from './reducers/cartReducer'
-import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer, productNewestReducer } from './reducers/productReducers'
-import { userLoginReducer, usersListReducer, usersDeleteReducer, userDetailsReducer, usersUpdateReducer, userUpdateProfileReducer, userProfileReducer } from './reducers/userReducer'
-import { ordersListReducer, orderCreateReducer, orderDetailsReducer, ordersMyListReducer, orderDeliverReducer, orderPayReducer, orderDeleteReducer } from './reducers/orderReducers'
+import {
+    productListReducer, productDetailsReducer, productDeleteReducer,
+    productCreateReducer, productUpdateReducer, productNewestReducer
+} from './reducers/productReducers'
+import {
+    userLoginReducer, usersListReducer, usersDeleteReducer,userRegisterReducer,
+    userDetailsReducer, usersUpdateReducer, userUpdateProfileReducer, userProfileReducer
+} from './reducers/userReducer'
+import {
+    ordersListReducer, orderCreateReducer, orderDetailsReducer,
+    ordersMyListReducer, orderDeliverReducer, orderPayReducer, orderDeleteReducer
+} from './reducers/orderReducers'
 
 // const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 // const cartTotalPriceFromStorage = localStorage.getItem('cartTotalPrice') ? JSON.parse(localStorage.getItem('cartTotalPrice')) : 0
@@ -37,6 +46,7 @@ const reducers = combineReducers({
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     userLogin: userLoginReducer,
+    userRegister:userRegisterReducer,
     userDetails: userDetailsReducer,
     usersList: usersListReducer,
     userProfile: userProfileReducer,
