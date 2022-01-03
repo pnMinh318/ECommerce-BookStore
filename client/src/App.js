@@ -11,7 +11,7 @@ import './bootstrap.min.css'
 import store from './redux/store';
 import Header from './components/header/Header';
 import Footer from './components/Footer/Footer';
-import LoginForm from './components/LoginForm';
+import LoginRegister from './pages/LoginRegister';
 
 import Home from './pages/Home';
 import CheckOut from './pages/CheckOut'
@@ -42,7 +42,7 @@ function App() {
                 <Route component={ProductDetails} path='/products/:id' ></Route>
                 <Route component={CartItems} path='/cart' ></Route>
                 <Route component={CheckOut} path='/checkout' ></Route>
-                <Route component={LoginForm} path='/login' exact ></Route>
+                <Route component={LoginRegister} path='/login' exact ></Route>
                 <Route component={OrderDetails} path='/order/:id'></Route>
                 <Route component={UserProfile} path='/profile'></Route>
               </Container>

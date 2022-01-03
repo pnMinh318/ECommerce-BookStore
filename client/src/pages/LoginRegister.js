@@ -5,9 +5,9 @@ import { Row, Col, Form } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 
 import { login, register } from '../redux/actions/userActions'
-import Spinners from './Spinners'
+import Spinners from '../components/Spinners'
 import '../assets/login.css'
-function LoginForm({ location }) {
+function LoginRegister({ location }) {
 
 
     const history = useHistory();
@@ -122,4 +122,4 @@ function LoginForm({ location }) {
     )
 }
 
-export default LoginForm
+export default LoginRegister

@@ -3,7 +3,9 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { BsTrash } from 'react-icons/bs'
+import { BsTrash, BsEye } from 'react-icons/bs'
+import { BiCheckShield } from 'react-icons/bi'
+import { MdAssignmentReturn } from 'react-icons/md'
 import { updateItemQuantity, removeFromCart } from '../redux/actions/cartActions'
 import { useHistory } from 'react-router-dom'
 function CartItems() {
@@ -29,65 +31,7 @@ function CartItems() {
     }
 
     return (
-        <> {/* row cart items*/}
-            {/* <Row className='my-3' as='div'>
-                <Col xs={12}>
-                    {products.length === 0 ?
-                        <div style={{ textAlign: 'center', padding: '20% 0px', backgroundColor: '#caddee8c' }}>
-                            <h3>nothing in your cart</h3>
-                            <Link to='/products'><span >click here to go back</span></Link>
-                        </div> :
-                        <ListGroup>
-                            {products.map(product => {
-                                return (
-                                    <ListGroup.Item variant='light' key={product._id}  >
-                                        <Row className='my-3'>
-                                            <Col md={2}>
-                                                <Image thumbnail
-                                                    src='https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80'
-                                                    fluid
-                                                    alt={product.name}>
-                                                </Image>
-                                            </Col >
-                                            <Col md={4}>
-                                                <Link to={`/products/${product._id}`}>
-                                                    <div className='ml-3 mt-4 text-center text-danger'> {product.name.toUpperCase()}</div>
-                                                </Link>
-                                            </Col>
-                                            <Col md={2}>
-                                                <div className='mt-4 text-center text-info'> {product.price}$</div>
-                                            </Col>
-                                            <Col md={4}>
-                                                <div className='mt-4 mx-2'>
-                                                    <select name='quantity' value={product.cartQuantity} className='w-50 h-75'
-                                                        onChange={(e) => handleChangeQuantity(product._id, e)}>
-                                                        {
-                                                            product.stock <= 5 ?
-                                                                [...Array(product.stock).keys()].map(index => {
-                                                                    return (
-                                                                        <option value={index + 1} key={index + 1}>{index + 1}</option> // lấy key thì ta đc array [0,1,...stock-1]
-                                                                    )
-                                                                })
-                                                                : [1, 2, 3, 4, 5].map(index => {
-                                                                    return (
-                                                                        <option value={index} key={index}>{index}</option>
-                                                                    )
-                                                                })
-                                                        }
-                                                    </select>
-                                                    <button className='ml-5 btn-danger border-0' onClick={(e) => handleRemoveFromCart(product._id, e)}>&times; </button>
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                )
-                            })
-                            }
-                        </ListGroup>
-                    }
-                </Col>
-            </Row> */}
-
+        <>
             {products.length === 0 ?
                 (<div style={{ textAlign: 'center', minHeight: '400px', padding: '20% 0px', backgroundColor: '#caddee8c' }}>
                     <h3>không có mặt hàng nào trong giỏ</h3>
@@ -96,8 +40,8 @@ function CartItems() {
                 //Có sản phẩm
                 <Row className='my-0' as='div'>
                     <div className='mb-1 w-100' >
-                        <p className='text-center text-uppercase' 
-                        style={{ fontSize: '30px', borderBottom: '0.5px solid  rgba(0, 0, 0, 0.1)' }}
+                        <p className='text-center text-uppercase'
+                            style={{ fontSize: '30px', borderBottom: '0.5px solid  rgba(0, 0, 0, 0.1)' }}
                         >giỏ hàng của bạn</p>
                     </div>
                     <Col xs={8} className='mt-3' style={{ minHeight: '400px' }}>
@@ -105,10 +49,13 @@ function CartItems() {
                             return (
 
                                 <div className='py-2 pl-1 mb-1' key={product._id}
-                                    style={{ width: '100%', backgroundColor: 'rgb(208 197 234 / 15%)', display: 'flex', height: '160px' }}>
+                                    style={{ width: '100%', display: 'flex', height: '160px' }}>
                                     <div style={{ width: '10%', display: 'flex', justifyContent: 'center' }}>
                                         <button onClick={() => handleRemoveFromCart(product._id)}
-                                            className='my-5' style={{ border: 'none', backgroundColor: 'rgb(248 246 252)', outline: 'none' }}> <BsTrash></BsTrash> </button>
+                                            className='my-5 remove_button'
+                                        >
+                                            <BsTrash></BsTrash>
+                                        </button>
                                     </div>
                                     {console.log(product)}
 
@@ -151,6 +98,18 @@ function CartItems() {
                     <Col xs={4} as='div' className='ml-auto' style={{ borderLeft: '0.5px solid rgba(0, 0, 0, 0.1)' }}>
                         <div>
                             <div className=''>
+                                <div className='mt-3'>
+                                    <p>
+                                        <BiCheckShield size={30} color='green' className='mr-3'></BiCheckShield>
+                                        Hoàn tiền 111% nếu hàng giả
+                                    </p>
+                                    <p><BsEye size={30} color='green' className='mr-3'></BsEye>
+                                        Mở hộp kiểm tra nhận hàng
+                                    </p>
+                                    <p><MdAssignmentReturn size={30} color='green' className='mr-3'></MdAssignmentReturn>
+                                        Đổi trả trong 30 ngày nếu sp lỗi
+                                    </p>
+                                </div>
                                 <div className='mt-4' style={{ borderTop: '2px solid #6e52e0', fontSize: '1.2rem' }} >
                                     <div className='pt-4 text-uppercase'>
                                         <div className='mr-3'>Tổng số sản phẩm:
@@ -167,8 +126,9 @@ function CartItems() {
                                 </div>
 
                                 <div className='mt-3' >
-                                    <button className='w-100 p-2 mb-4' onClick={() => handleCheckout()}
-                                        style={{ border: '1px solid #000', backgroundColor: '#000', color: '#fff' }} >TIẾN HÀNH THANH TOÁN</button>
+                                    <button className='w-100 p-2 mb-4 checkout_button'
+                                        onClick={() => handleCheckout()}
+                                    >TIẾN HÀNH THANH TOÁN</button>
                                 </div>
                             </div>
                         </div>

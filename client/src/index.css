@@ -286,3 +286,25 @@ form button.search__input:hover{
   /* width: 50%;
   border-radius: 50%; */
 }
+
+/* cartItems */
+.remove_button{
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+.remove_button:hover{
+  transition: .1s ease-in;
+  background-color: rgb(202, 202, 202);
+}
+.checkout_button{
+  background-color: #000;
+  color: #fff;
+  border-radius: 3px;
+  border: .5px solid white;
+
+}
+.checkout_button:hover{
+  transition: .1s ease-in;
+  border: .5px solid black;
+}

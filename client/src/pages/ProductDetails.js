@@ -90,11 +90,11 @@ function ProductDetails({ match }) {
                                             <table className='table text-left'>
                                                 <tbody>
                                                     {
-                                                        Object.keys(product.details).map((key) => {
+                                                        Object.keys(product.details).map((detail) => {
                                                             return (
-                                                                <tr className='wtf' key={product.details[key]}>
-                                                                    <th className='wtf'>{key}</th>
-                                                                    <td className='wtf'>{product.details[key]}</td>
+                                                                <tr className='wtf' key={detail}>
+                                                                    <th className='wtf'>{detail}</th>
+                                                                    <td className='wtf'>{product.details[detail]}</td>
                                                                 </tr>
                                                             )
                                                         })

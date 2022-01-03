@@ -9,17 +9,6 @@ const cartInitState = {
 const cartReducer = (state = cartInitState, action) => {
     switch (action.type) {
         case 'ADD_TO_CART':
-            // const product = { ...action.payload, cartQuantity: 1 }
-            // const existedProductIndex = state.products.findIndex((product) => product._id === action.payload._id)
-            // if (existedProductIndex >= 0) {
-            //     //trong kho - cartqty >=1 mới đc add
-            //     if (state.products[existedProductIndex].stock - state.products[existedProductIndex].cartQuantity >= 1) {
-            //         // nếu trong cart chưa có sp thì quantity =1... có rồi thì +1
-            //         state.products[existedProductIndex].cartQuantity += 1
-            //         //tổng tiền
-            //         state.totalPrice += state.products[existedProductIndex].price
-            //     }
-            // }
             const product = { ...action.payload, cartQuantity: 1 }
             const existedProduct = state.products.find((product) => product._id === action.payload._id)
             if (existedProduct !== undefined) {
