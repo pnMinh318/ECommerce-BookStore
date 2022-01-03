@@ -1,22 +1,21 @@
 import { ProductModel } from "../models/ProductModel.js";
 export const getBooks = async (req, res) => {
     try {
+        const pageSize = 4
+        const currentPage = Number(req.query.page) || 1
+        const category = req.query.category ? {
+            category: req.query.category
+        } : {}
         const search = req.query.q ? {
             name: {
-                $regex: req.query.q ,
+                $regex: req.query.q,
                 $options: 'i'
             }
-        } : { }
-        const data = await ProductModel.find({...search})
-        // let data
-        // if (category) {
-        //     category.replace(' ','-')
-        //     data = await ProductModel.find({ category: category })
-        //     console.log(category)
-        // } else {
-        //     data = await ProductModel.find({})
-        // }
-        res.status(200).json(data)
+        } : {}
+        const count = await ProductModel.countDocuments({ ...search,...category}) //kiểm tra lại
+        const data = await ProductModel.find({ ...search,...category}).limit(pageSize).skip(pageSize * (currentPage - 1))
+       
+        res.status(200).json({ products: data, currentPage, totalPages: Math.ceil(count / pageSize) })
     } catch (error) {
         res.status(500).json({ error: error })
 

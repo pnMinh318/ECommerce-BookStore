@@ -57,7 +57,7 @@ function ProductDetails({ match }) {
                                                             <span style={{ background: 'orange', color: 'white', borderRadius: '5px', border: '2px solid white' }}
                                                                 className='ml-3 font1p2 px-2'
                                                             >{product.discount}%</span>
-                                                            <span  className='ml-3'><del>{ product.price + product.price*product.discount/100}đ</del></span>
+                                                            <span className='ml-3'><del>{product.price + product.price * product.discount / 100}đ</del></span>
                                                         </>
                                                     )
                                                 }
@@ -71,6 +71,7 @@ function ProductDetails({ match }) {
                                             <div>
                                                 <button style={{ background: 'red', color: 'white', padding: '10px 30px', borderRadius: '5px' }}
                                                     className='ml-auto'
+                                                    disabled={product.stock === 0}
                                                     onClick={() => dispatch(addToCart(product))}>Thêm vào giỏ hàng </button>
                                             </div>
                                         </div>

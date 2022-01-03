@@ -107,7 +107,7 @@ function CartItems() {
                                         Mở hộp kiểm tra nhận hàng
                                     </p>
                                     <p><MdAssignmentReturn size={30} color='green' className='mr-3'></MdAssignmentReturn>
-                                        Đổi trả trong 30 ngày nếu sp lỗi
+                                        Đổi trả trong 30 ngày nếu sản phẩm lỗi
                                     </p>
                                 </div>
                                 <div className='mt-4' style={{ borderTop: '2px solid #6e52e0', fontSize: '1.2rem' }} >

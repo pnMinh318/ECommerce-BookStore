@@ -32,12 +32,13 @@ function App() {
         <Switch >
           <Route component={HomeAdmin} path='/admin/'></Route>
 
-          <> {/* thêm bracket để switch không warning*/}
+          <> {/* thêm fragment để switch không warning*/}
             <div id='App' style={{ letterSpacing: '0px' }}>
               <Header></Header>
               <Container >
                 <Route component={Home} path='/' exact></Route>
                 <Route component={Products} path='/products' exact></Route>
+                <Route component={Products} path='/page/:page' exact></Route>
                 <Route component={Products} path='/search' exact></Route>
                 <Route component={ProductDetails} path='/products/:id' ></Route>
                 <Route component={CartItems} path='/cart' ></Route>

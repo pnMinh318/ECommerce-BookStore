@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { listProducts } from '../redux/actions/productActions'
 import { Row, Col } from 'react-bootstrap'
-
+// import { Route } from 'react-router-dom'
 import ItemCard from '../components/ItemCard'
 import Spinners from '../components/Spinners'
 import Message from '../components/Message'
 import SearchBox from '../components/SearchBox'
-
-function Products({history,location}) {
+import Paginate from '../components/Paginate'
+function Products({ history, location, match }) {
 
     const dispatch = useDispatch()
-    const query = location.search ? location.search.split('=')[1] : ''
+    const query = location.search ? location.search.split('?q=')[1] : ''
+    const currentPage = match.params.page || 1 //default page 1
 
     const productList = useSelector(state => state.productList)
-    const { loading, products, error } = productList
+    const { loading, products, error, page, pages } = productList
 
 
     const [filterPrice, setFilterByPrice] = useState('')
@@ -26,10 +27,10 @@ function Products({history,location}) {
     }, [products])
 
     useEffect(() => {
-        dispatch(listProducts(query))
-    }, [dispatch,query])
+        dispatch(listProducts(query, currentPage))
+    }, [dispatch, query, currentPage])
 
-    
+
 
 
     const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
@@ -71,9 +72,9 @@ function Products({history,location}) {
         result = priceFilter(result, filterPrice)
         result = categoryFilter(result, filterCategory)
         setFilterArray(result)
-    }, [filterCategory, filterPrice,products])
+    }, [filterCategory, filterPrice, products])
 
-    
+
 
     return (
         <>
@@ -81,15 +82,6 @@ function Products({history,location}) {
                 <img className='w-100 h-100' src='https://cdn0.fahasa.com/media/wysiwyg/NGOAI-VAN-2018/AUG-2018/Bestsellers1920x350-111.jpg' alt=''></img>
             </div>
             <div className='mt-5 mb-3'>
-                {/* <form className='text-right'
-                    onSubmit={(e) => nameFilter(e, 'name', e.target.elements.search__input.value)}>
-                    <input className='search__input'
-                        autoComplete='off'
-                        placeholder='Sách bạn muốn tìm'
-                        name='search__input'
-                        onEmptied={() => setFilterArray([])}></input>
-                    <button className='search__input' type='submit'> Tìm</button>
-                </form> */}
                 <SearchBox history={history} location={location}></SearchBox>
             </div>
 
@@ -118,22 +110,28 @@ function Products({history,location}) {
 
             {loading ? <Spinners> </Spinners> : error ? <Message variant='danger' msg='Không tìm thấy sản phẩm nào'></Message> :
                 filterArray.length > 0 ?
-                    (<Row style={{minHeight:'400px'}}>
-                        <Col xs={12}>
-                            <Row>
-                                {
-                                    filterArray.map((product) => {
-                                        return (product.stock > 0 &&
-                                            <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
-                                                <ItemCard item={product} key={product._id} >
-                                                </ItemCard>
-                                            </Col>
-                                        )
-                                    })
-                                }
+                    (
+                        <>
+                            <Row style={{ minHeight: '400px' }}>
+                                <Col xs={12}>
+                                    <Row>
+                                        {
+                                            filterArray.map((product) => {
+                                                return (
+                                                    <Col sm={9} md={6} lg={'auto'} xl={3} key={product._id}>
+                                                        <ItemCard item={product} key={product._id} >
+                                                        </ItemCard>
+                                                    </Col>
+                                                )
+                                            })
+                                        }
+                                    </Row>
+                                </Col>
                             </Row>
-                        </Col>
-                    </Row>) :
+                            <div className='mt-4'>
+                                <Paginate page={page} pages={pages} history={history}></Paginate>
+                            </div>
+                        </>) :
                     (<div style={{ textAlign: 'center', minHeight: '400px', padding: '20% 0px', backgroundColor: '#caddee8c' }}>
                         <h3>không tìm thấy </h3>
                     </div>)

@@ -210,6 +210,9 @@ button.card__button  {
 .card button.card__button:hover {
   opacity: 0.85;
 }
+.card button.card__button:disabled {
+  opacity: 0.5;
+}
 
 button:active{
   box-shadow: 0 1px #666;
