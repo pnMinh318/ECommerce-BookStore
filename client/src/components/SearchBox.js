@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 
 function SearchBox({ history,location }) {
-    const query = location.search ? location.search.split('=')[1] : ''
+    const query = location.search ? location.search.split('?q=')[1] : ''
     const [search, setSearch] = useState(query)
 
 

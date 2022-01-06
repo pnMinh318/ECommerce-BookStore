@@ -25,10 +25,10 @@ const PRODUCT_NEWEST_REQUEST = 'PRODUCT_NEWEST_REQUEST'
 const PRODUCT_NEWEST_SUCCESS = 'PRODUCT_NEWEST_SUCCESS'
 const PRODUCT_NEWEST_FAIL = 'PRODUCT_NEWEST_FAIL'
 
-export const listProducts = (query = '', page = '') => async (dispatch) => {
+export const listProducts = (query = '', page = '', category = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
-        const { data } = await axios.get(`/api/products?q=${query}&page=${page}`)  //nên destructure để lấy mỗi cái data
+        const { data } = await axios.get(`/api/products?q=${query}&page=${page}&category=${category}`)  //nên destructure để lấy mỗi cái data
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,

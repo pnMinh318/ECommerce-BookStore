@@ -11,6 +11,7 @@ import Paginate from '../components/Paginate'
 function Products({ history, location, match }) {
 
     const dispatch = useDispatch()
+    const category = location.search ? location.search.split('?category=')[1] : ''
     const query = location.search ? location.search.split('?q=')[1] : ''
     const currentPage = match.params.page || 1 //default page 1
 
@@ -27,17 +28,17 @@ function Products({ history, location, match }) {
     }, [products])
 
     useEffect(() => {
-        dispatch(listProducts(query, currentPage))
-    }, [dispatch, query, currentPage])
+        dispatch(listProducts(query, currentPage, category))
+    }, [dispatch, query, currentPage, category])
 
 
 
 
-    const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
-        return str.toLowerCase().normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/đ/g, 'd').replace(/Đ/g, 'D')
-    }
+    // const strStandardlize = (str) => { // chuẩn hóa xóa dấu tiếng Việt
+    //     return str.toLowerCase().normalize('NFD')
+    //         .replace(/[\u0300-\u036f]/g, '')
+    //         .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+    // }
     //const nameFilter = (e, key, value) => {
     //     e.preventDefault()
     //     const newVal = strStandardlize(value)
@@ -62,17 +63,22 @@ function Products({ history, location, match }) {
             return array
         }
     }
-    const categoryFilter = (array, category) => {
-        return (array.filter(product => {
-            return strStandardlize(product.category).includes(category)
-        }))
-    }
+    // const categoryFilter = (array, category) => {
+    //     return (array.filter(product => {
+    //         return strStandardlize(product.category).includes(category)
+    //     }))
+    // }
     useEffect(() => {
         let result = products
         result = priceFilter(result, filterPrice)
-        result = categoryFilter(result, filterCategory)
+        //result = categoryFilter(result, filterCategory)
+        if(filterCategory===''){
+            history.push('/products')
+        }else{
+            history.push(`/products?category=${filterCategory}`)
+        }
         setFilterArray(result)
-    }, [filterCategory, filterPrice, products])
+    }, [filterCategory, filterPrice, products,history])
 
 
 

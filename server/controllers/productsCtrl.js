@@ -1,7 +1,7 @@
 import { ProductModel } from "../models/ProductModel.js";
 export const getBooks = async (req, res) => {
     try {
-        const pageSize = 4
+        const pageSize = 16
         const currentPage = Number(req.query.page) || 1
         const category = req.query.category ? {
             category: req.query.category
@@ -13,7 +13,7 @@ export const getBooks = async (req, res) => {
             }
         } : {}
         const count = await ProductModel.countDocuments({ ...search,...category}) //kiểm tra lại
-        const data = await ProductModel.find({ ...search,...category}).limit(pageSize).skip(pageSize * (currentPage - 1))
+        const data = await ProductModel.find({ ...search,...category})//.limit(pageSize).skip(pageSize * (currentPage - 1))
        
         res.status(200).json({ products: data, currentPage, totalPages: Math.ceil(count / pageSize) })
     } catch (error) {

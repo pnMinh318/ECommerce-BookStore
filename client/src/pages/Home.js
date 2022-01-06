@@ -20,17 +20,17 @@ function MainMenu({ history }) {
     const imgsData = [
         {
             key: 1,
-            src: 'https://listsach.com/wp-content/uploads/2021/06/list-cau-noi-hay-ve-doc-sach-1024x576.jpg',
+            src: 'https://static01.nyt.com/images/2019/12/06/books/06critics-list1-CECLN/06critics-list1-superJumbo.jpg',
             alt: 'book2'
         },
         {
             key: 2,
-            src: 'https://www.netabooks.vn/Data/Sites/1/media/sach-2021/cay-cam-ngot-cua-toi/cay-cam-ngot-cua-toi.jpg',
+            src: 'https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:best/CULTBOOKS-WEBSITE-MAIN_uuitc6/books-about-cults-the-girls-afterlives-osho-earthseed.jpg',
             alt: 'book3'
         },
         {
             key: 3,
-            src: 'https://coolwallpapers.me/picsup/5253841-pillow-bookstore-reading-place-cosy-window-light-room-read-chill-cool-book-educate-knowledge-window-morning-relax-reading-explore-free-pictures.jpg',
+            src: 'https://static01.nyt.com/images/2019/12/06/books/06critics-lists3/06critics-lists3-mobileMasterAt3x.jpg',
             alt: 'book4'
         }
     ]
@@ -39,7 +39,7 @@ function MainMenu({ history }) {
         <div className=''>
 
             <div className='app-main-menu'>
-                <Navbar></Navbar>
+                {/* <Navbar></Navbar> */}
                 <Slides imgsData={imgsData}></Slides>
 
             </div>

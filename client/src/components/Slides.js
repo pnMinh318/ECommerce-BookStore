@@ -6,7 +6,7 @@ function Slides({ imgsData }) {
     const history = useHistory()
     return (
         <>
-            <Carousel pause='hover' className='w-100 bg-dark'  slide={false} fade={false}>
+            <Carousel pause='hover' className='w-100 bg-dark'  >
                 {imgsData.map((img, index) => {
                     return (
                         <Carousel.Item

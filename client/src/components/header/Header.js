@@ -12,7 +12,7 @@ import User from './User'
 
 function Header() {
 
-
+    
     return (
         <>
 
@@ -29,7 +29,6 @@ function Header() {
                     <User ></User>
                 </div>
             </div>
-
         </>
     )
 }
