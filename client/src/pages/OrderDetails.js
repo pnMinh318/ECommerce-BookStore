@@ -133,12 +133,14 @@ function OrderDetails({ match }) {
                                 <ListGroup className='p-2' style={{ background: '#f2f2e7' }}>
                                     <ListGroup.Item >
                                         <p> Tổng:
-                                            <span className='ml-auto'> {order.orderPrice}đ  </span>
+                                            <span className='ml-auto'> {order.orderPrice.toLocaleString('en-US')}đ  </span>
                                         </p>
                                         <p className='my-3'> Phí vận chuyển:
-                                            <span className='ml-auto'> {order.shippingPrice}đ  </span>
+                                            <span className='ml-auto'> {order.shippingPrice.toLocaleString('en-US')}đ  </span>
                                         </p>
-                                        <p className='text-right text-danger font1p2 mt-5'>Thành tiền: {order.orderPrice + order.shippingPrice}đ</p>
+                                        <p className='text-right text-danger font1p2 mt-5'>
+                                            Thành tiền: {(order.orderPrice + order.shippingPrice).toLocaleString('en-US')}đ
+                                            </p>
                                     </ListGroup.Item>
                                 </ListGroup>
                                 {

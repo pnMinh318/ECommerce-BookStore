@@ -25,12 +25,12 @@ function ItemCard({ item }) {
                         {item.name}</Card.Title>
                 </Link>
                 <Card.Text as='p' className='text-center m-0 card-product-price ' >
-                    {item.price}đ
+                    {item.price.toLocaleString('en-US')}đ
                     {
                         item.discount > 0 && 
                         (<small className='ml-3'
                             style={{ fontSize: '.7rem', color: 'grey',position:'absolute' }}>
-                            <del>{item.price + item.price * item.discount / 100}đ</del>
+                            <del>{(item.price + item.price * item.discount / 100).toLocaleString('en-US')}đ</del>
                         </small>)
                     }
 

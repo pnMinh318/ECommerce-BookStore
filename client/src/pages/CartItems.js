@@ -67,7 +67,7 @@ function CartItems() {
                                         <Link to={`/products/${product._id}`}>
                                             <div className=' text-danger' style={{ minHeight: '30px' }}> {product.name.toUpperCase()}</div>
                                         </Link>
-                                        <p className='mt-4'>Đơn giá: {product.price}</p>
+                                        <p className='mt-4'>Đơn giá: {product.price.toLocaleString('en-US')}</p>
                                     </div>
                                     <div style={{ width: '25%', textAlign: 'center' }}>
                                         <div className=' mb-2'>
@@ -88,7 +88,9 @@ function CartItems() {
                                                 }
                                             </select>
                                         </div>
-                                        <span style={{ color: 'red' }}>Thành tiền: {Number(product.price) * Number(product.cartQuantity)}đ</span>
+                                        <span style={{ color: 'red' }}>
+                                            Thành tiền: {(Number(product.price) * Number(product.cartQuantity)).toLocaleString('en-US')}đ
+                                            </span>
                                     </div>
 
                                 </div>
@@ -120,7 +122,7 @@ function CartItems() {
                                             </span>
                                         </div>
                                         <div className='mr-3'>Tổng tiền:
-                                            <span className='float-right'>{totalPrice} đ</span>
+                                            <span className='float-right'>{totalPrice.toLocaleString('en-US')} đ</span>
                                         </div>
                                     </div>
                                 </div>

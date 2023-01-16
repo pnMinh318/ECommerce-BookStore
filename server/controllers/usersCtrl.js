@@ -13,6 +13,7 @@ export const authUser = asyncHandler(async (req, res) => {
                 _id: user._id,
                 email: user.email,
                 name: user.name,
+                phone: user?.phone,
                 isAdmin: user.isAdmin,
                 token: generateToken(user._id)
             })

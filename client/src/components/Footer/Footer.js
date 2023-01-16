@@ -19,7 +19,6 @@ function Footer() {
             <div className='footer-center'>
               <b>ABOUT US</b>
               <p>Phạm Nhật Minh-18110318 </p>
-              <p>Đặng Văn Sang-18110352</p>
             </div>
             <div className='footer-right'>
               <b>CUSTOMER SERVICES</b>

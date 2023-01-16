@@ -4,18 +4,21 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { listNewestProducts } from '../redux/actions/productActions'
 
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 import Slides from '../components/Slides'
 import Spinners from '../components/Spinners'
 import Message from '../components/Message'
 
 
 function MainMenu({ history }) {
-
+    const abortController = new AbortController();
     const dispatch = useDispatch()
     const { loading, products, error } = useSelector(state => state.productNewest)
     useEffect(() => {
         dispatch(listNewestProducts())
+        return ()=>{
+            abortController.abort();
+        }
     }, [dispatch])
     const imgsData = [
         {
@@ -75,12 +78,14 @@ function MainMenu({ history }) {
                                             {product.name}</Card.Title>
                                     </Link>
                                     <Card.Text as='p' className='text-center m-0 card-product-price ' >
-                                        {product.price}đ
+                                        {product.price.toLocaleString('en-US')}đ
                                         {
                                             product.discount > 0 &&
                                             (<small className='ml-3'
                                                 style={{ fontSize: '.7rem', color: 'grey', position: 'absolute' }}>
-                                                <del>{product.price + product.price * product.discount / 100}đ</del>
+                                                <del>
+                                                    {(product.price + product.price * product.discount / 100).toLocaleString('en-US')}đ
+                                                </del>
                                             </small>)
                                         }
 
@@ -91,8 +96,8 @@ function MainMenu({ history }) {
 
                 </div>
                 <div className='text-center'>
-                    <button className='px-5 h-100 mb-3 py-2 search__input' style={{borderRadius:'10px'}}
-                    onClick={() => history.push('/products')}
+                    <button className='px-5 h-100 mb-3 py-2 search__input' style={{ borderRadius: '10px' }}
+                        onClick={() => history.push('/products')}
                     >Xem tất cả</button>
                 </div>
             </div>

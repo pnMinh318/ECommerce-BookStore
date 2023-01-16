@@ -15,7 +15,11 @@ function ProductDetails({ match }) {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        const abort = new AbortController();
         dispatch(productDetails(match.params.id))
+        return () => {
+            abort.abort();
+        }
     }, [dispatch, match.params.id])
     const { loading, product, error } = useSelector(state => state.productDetails) // chọn slice
 
@@ -50,14 +54,16 @@ function ProductDetails({ match }) {
                                                 {`Nhà xuất bản : ${product.details['NXB']}`}
                                             </div>
                                             <div className='py-3 pt-3' >
-                                                <span style={{ fontSize: '40px', color: 'red' }}> {product.price}đ</span>
+                                                <span style={{ fontSize: '40px', color: 'red' }}> {product.price.toLocaleString('en-US')}đ</span>
                                                 {
                                                     product.discount > 0 && (
                                                         <>
                                                             <span style={{ background: 'orange', color: 'white', borderRadius: '5px', border: '2px solid white' }}
                                                                 className='ml-3 font1p2 px-2'
                                                             >{product.discount}%</span>
-                                                            <span className='ml-3'><del>{product.price + product.price * product.discount / 100}đ</del></span>
+                                                            <span className='ml-3'><del>
+                                                                {(product.price + product.price * product.discount / 100).toLocaleString('en-US')}đ
+                                                            </del></span>
                                                         </>
                                                     )
                                                 }

@@ -72,9 +72,7 @@ function Products({ history, location, match }) {
         let result = products
         result = priceFilter(result, filterPrice)
         //result = categoryFilter(result, filterCategory)
-        if(filterCategory===''){
-            history.push('/products')
-        }else{
+        if(filterCategory!==''){
             history.push(`/products?category=${filterCategory}`)
         }
         setFilterArray(result)

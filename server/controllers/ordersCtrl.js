@@ -65,10 +65,10 @@ export const createOrder = async (req, res) => {
         })
         console.log('neworder', newOrder)
         const createdOrder = await newOrder.save()
-        if(createOrder){
+        if (createdOrder) {
             res.status(201).json(createdOrder)
-            sendEmail(email)
-        }else{
+            sendEmail(email, createdOrder)
+        } else {
             res.status(404)
             throw new Error('Order Not Created')
         }
@@ -138,7 +138,7 @@ export const deleteOrder = async (req, res) => {
         const data = await OrderModel.findById(req.params.id)
         if (data) {
             await data.remove()
-            res.json({message:'Orders remove successfully'})
+            res.json({ message: 'Orders remove successfully' })
         }
         else {
             res.status(404).json({ message: 'Order not found' })
